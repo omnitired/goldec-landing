@@ -1,9 +1,3 @@
-const nextConfig = {
-  i18n: {
-    locales: ['fa'],
-    defaultLocale: 'fa',
-    localeDetection: false,
-  },
-};
+const nextConfig = {};
 
 export default nextConfig;
