@@ -6,11 +6,7 @@ export const metadata: Metadata = {
   description: "سامانه نظارت بر معاملات طلای آب‌شده با شفافیت، امنیت و اعتماد",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({children}: Readonly<{children: React.ReactNode;}>) {
   return (
     <html lang="fa" dir="rtl">
       <body className="antialiased">
