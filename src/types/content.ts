@@ -54,6 +54,22 @@ export interface StatsContent {
   stat3: StatItem;
 }
 
+export interface Partner {
+  id: number;
+  name: string;
+  url: string;
+  logo: string;
+  addedDate: string; // Jalali date in YYYY/MM/DD format
+}
+
+export interface PartnersData {
+  partners: Partner[];
+  settings: {
+    initialDisplayCount: number;
+    expandStep: number;
+  };
+}
+
 export interface PartnersContent {
   title1: string;
   title2: string;

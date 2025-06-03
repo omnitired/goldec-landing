@@ -8,6 +8,7 @@ import {
   PartnersSection,
   CTASection,
 } from '@/components';
+import AdminNavLink from '@/components/ui/AdminNavLink';
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <StatsSection />
       <PartnersSection />
       <CTASection />
+      <AdminNavLink />
     </Layout>
   );
 }
