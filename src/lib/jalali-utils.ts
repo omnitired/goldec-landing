@@ -1,4 +1,5 @@
 import moment from 'moment-jalaali';
+import { toFarsiDigits } from './utils';
 
 export interface JalaliDate {
   year: number;
@@ -37,7 +38,7 @@ export function formatJalaliDate(dateString: string): string {
       return dateString; // Return original if invalid
     }
     
-    return `${day} ${monthNames[month - 1]} ${year}`;
+    return `${toFarsiDigits(day)} ${monthNames[month - 1]} ${toFarsiDigits(year)}`;
   } catch (error) {
     console.error('Error formatting Jalali date:', error);
     return dateString; // Return original string if parsing fails
@@ -71,16 +72,16 @@ export function getRelativeJalaliDate(dateString: string): string {
     } else if (diffDays < 0 && diffDays > -2) {
       return 'فردا';
     } else if (diffDays < 0) {
-      return `${Math.abs(diffDays)} روز دیگر`;
+      return `${toFarsiDigits(Math.abs(diffDays))} روز دیگر`;
     } else if (diffDays < 7) {
-      return `${diffDays} روز پیش`;
+      return `${toFarsiDigits(diffDays)} روز پیش`;
     } else if (diffDays < 30) {
       const weeks = Math.floor(diffDays / 7);
-      return `${weeks} هفته پیش`;
+      return `${toFarsiDigits(weeks)} هفته پیش`;
     } else if (diffMonths < 12) {
-      return `${diffMonths} ماه پیش`;
+      return `${toFarsiDigits(diffMonths)} ماه پیش`;
     } else {
-      return `${diffYears} سال پیش`;
+      return `${toFarsiDigits(diffYears)} سال پیش`;
     }
   } catch (error) {
     console.error('Error calculating relative Jalali date:', error);
