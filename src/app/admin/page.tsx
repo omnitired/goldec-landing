@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Plus, Edit, Trash2, Save, X, Calendar, Globe, Building2, Search, Download, Upload, RefreshCw, Eye } from 'lucide-react';
+import { Plus, Edit, Trash2, Save, X, Calendar, Globe, Building2, Search, Download, Upload, RefreshCw, Eye, Camera, ImageIcon } from 'lucide-react';
 import { formatJalaliDate, getRelativeJalaliDate, getCurrentJalaliDate, isValidJalaliDate } from '@/lib/jalali-utils';
 import Image from 'next/image';
 
@@ -28,6 +28,8 @@ const AdminPage = () => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<number | null>(null);
   const [showPreview, setShowPreview] = useState<Partner | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
     loadPartners();
@@ -82,6 +84,61 @@ const AdminPage = () => {
   const handleEditPartner = (partner: Partner) => {
     setEditingPartner({ ...partner });
     setIsEditing(true);
+  };
+
+  // Add the missing handleImageUpload function
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg+xml', 'image/webp'];
+    if (!validTypes.includes(file.type)) {
+      alert('فرمت فایل پشتیبانی نمی‌شود. لطفاً از فرمت‌های JPG، PNG، GIF، SVG یا WebP استفاده کنید.');
+      return;
+    }
+
+    // Validate file size (5MB max)
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+      alert('حجم فایل نباید بیشتر از 5 مگابایت باشد.');
+      return;
+    }
+
+    setIsUploading(true);
+    
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('partnerId', editingPartner?.id?.toString() || 'new');
+      formData.append('partnerName', editingPartner?.name || 'unnamed');
+
+      const response = await fetch('/api/upload-logo', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUploadedImage(data.logoPath);
+        setEditingPartner(prev => prev ? { ...prev, logo: data.logoPath } : null);
+      } else {
+        const errorData = await response.json();
+        alert(`خطا در آپلود تصویر: ${errorData.error || 'خطای نامشخصص'}`);
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      alert('خطا در آپلود تصویر. لطفاً دوباره تلاش کنید.');
+    } finally {
+      setIsUploading(false);
+      event.target.value = '';
+    }
+  };
+
+  // Add the missing removeUploadedImage function
+  const removeUploadedImage = () => {
+    setUploadedImage(null);
+    setEditingPartner(prev => prev ? { ...prev, logo: '' } : null);
   };
 
   const handleSavePartner = async () => {
@@ -448,7 +505,7 @@ const AdminPage = () => {
         {/* Edit Modal */}
         {isEditing && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl shadow-xl max-w-md w-full">
+            <div className="bg-white rounded-2xl shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-xl font-bold text-gray-900">
@@ -458,6 +515,7 @@ const AdminPage = () => {
                     onClick={() => {
                       setIsEditing(false);
                       setEditingPartner(null);
+                      setUploadedImage(null);
                     }}
                     className="p-2 text-gray-400 hover:text-gray-600"
                   >
@@ -492,20 +550,99 @@ const AdminPage = () => {
                     />
                   </div>
 
+                  {/* Photo Upload Section */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      مسیر لوگو
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      لوگو پلتفرم
                     </label>
-                    <input
-                      type="text"
-                      value={editingPartner?.logo || ''}
-                      onChange={(e) => setEditingPartner(prev => prev ? { ...prev, logo: e.target.value } : null)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
-                      placeholder="/logos/platform-name.svg (خالی بگذارید برای تولید خودکار)"
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                      اگر خالی بگذارید، لوگو به صورت خودکار تولید می‌شود
-                    </p>
+                    
+                    {/* Current/Uploaded Image Preview */}
+                    {(uploadedImage || editingPartner?.logo) && (
+                      <div className="mb-3 p-3 border border-gray-200 rounded-lg bg-gray-50">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="relative w-12 h-12 bg-white rounded-lg border border-gray-200 flex items-center justify-center overflow-hidden">
+                              <Image
+                                src={uploadedImage || editingPartner?.logo || ''}
+                                alt="Logo preview"
+                                width={48}
+                                height={48}
+                                className="w-full h-full object-contain"
+                                onError={(e) => {
+                                  const target = e.target as HTMLImageElement;
+                                  target.style.display = 'none';
+                                  const fallback = target.nextElementSibling as HTMLElement;
+                                  if (fallback) fallback.style.display = 'flex';
+                                }}
+                              />
+                              <ImageIcon className="w-6 h-6 text-gray-400 hidden" />
+                            </div>
+                            <div>
+                              <p className="text-sm font-medium text-gray-900">تصویر انتخاب شده</p>
+                              <p className="text-xs text-gray-500">
+                                {uploadedImage ? 'آپلود شده' : 'تصویر فعلی'}
+                              </p>
+                            </div>
+                          </div>
+                          <button
+                            onClick={removeUploadedImage}
+                            className="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded"
+                            title="حذف تصویر"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Upload Button */}
+                    <div className="space-y-2">
+                      <label className="flex items-center justify-center gap-2 w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-yellow-400 hover:bg-yellow-50 cursor-pointer transition-colors group">
+                        {isUploading ? (
+                          <>
+                            <RefreshCw className="w-5 h-5 text-gray-400 animate-spin" />
+                            <span className="text-sm text-gray-600">در حال آپلود...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Camera className="w-5 h-5 text-gray-400 group-hover:text-yellow-600" />
+                            <span className="text-sm text-gray-600 group-hover:text-yellow-700">
+                              {uploadedImage || editingPartner?.logo ? 'تغییر تصویر' : 'انتخاب تصویر'}
+                            </span>
+                          </>
+                        )}
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageUpload}
+                          disabled={isUploading}
+                          className="hidden"
+                        />
+                      </label>
+                      <p className="text-xs text-gray-500 text-center">
+                        فرمت‌های مجاز: JPG، PNG، GIF، SVG، WebP (حداکثر 5MB)
+                      </p>
+                    </div>
+
+                    {/* Manual Logo Path Input */}
+                    <div className="mt-3">
+                      <label className="block text-xs font-medium text-gray-600 mb-1">
+                        یا مسیر لوگو را وارد کنید
+                      </label>
+                      <input
+                        type="text"
+                        value={editingPartner?.logo || ''}
+                        onChange={(e) => {
+                          setEditingPartner(prev => prev ? { ...prev, logo: e.target.value } : null);
+                          setUploadedImage(null);
+                        }}
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                        placeholder="/logos/platform-name.svg"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">
+                        اگر خالی بگذارید، لوگو به صورت خودکار تولید می‌شود
+                      </p>
+                    </div>
                   </div>
 
                   <div>
@@ -528,7 +665,8 @@ const AdminPage = () => {
                 <div className="flex gap-3 mt-6">
                   <button
                     onClick={handleSavePartner}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors"
+                    disabled={isUploading}
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Save className="w-4 h-4" />
                     ذخیره
@@ -537,6 +675,7 @@ const AdminPage = () => {
                     onClick={() => {
                       setIsEditing(false);
                       setEditingPartner(null);
+                      setUploadedImage(null);
                     }}
                     className="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
                   >
