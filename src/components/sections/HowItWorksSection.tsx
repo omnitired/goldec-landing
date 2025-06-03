@@ -28,8 +28,8 @@ const StepCard: React.FC<{
         {stepNumber}
       </div>
     </div>
-    <h3 className="text-2xl font-bold mb-4 text-gray-900">{title}</h3>
-    <p className="text-gray-600 leading-relaxed text-lg">{description}</p>
+    <h3 className="text-2xl font-bold mb-4 text-foreground">{title}</h3>
+    <p className="text-muted-foreground leading-relaxed text-lg">{description}</p>
   </div>
 );
 
@@ -62,12 +62,12 @@ const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ className }) => {
 
   return (
     <section id="how-it-works" className={cn(
-      "py-24 px-6 bg-gradient-to-br from-gray-50 to-white",
+      "py-24 px-6 bg-background relative overflow-hidden",
       className
     )}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground mb-6">
             {content.howItWorks.title}
           </h2>
         </div>

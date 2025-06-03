@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ThemeProvider } from '@/contexts/ThemeContext';
 
 export const metadata: Metadata = {
   title: "گلدک - سامانه نظارت بر معاملات طلای آب‌شده",
@@ -10,7 +11,9 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
   return (
     <html lang="fa" dir="rtl">
       <body className="antialiased">
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

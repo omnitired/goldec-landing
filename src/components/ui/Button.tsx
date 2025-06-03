@@ -25,10 +25,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const baseStyles = "inline-flex items-center justify-center rounded-2xl font-bold transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100";
     
     const variants = {
-      primary: "bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-400 hover:to-amber-400 text-black shadow-2xl hover:shadow-yellow-500/25 focus:ring-yellow-500",
-      secondary: "bg-white/10 backdrop-blur-sm border-2 border-white/30 hover:bg-white/20 hover:border-white/50 text-white shadow-xl focus:ring-white/50",
-      outline: "border-2 border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black focus:ring-yellow-500",
-      ghost: "text-gray-700 hover:bg-gray-100 focus:ring-gray-300"
+      primary: "bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-400 hover:to-amber-400 text-black dark:text-black shadow-2xl hover:shadow-yellow-500/25 focus:ring-yellow-500",
+  secondary: "bg-white/90 dark:bg-white/5 backdrop-blur-sm border-2 border-gray-200 dark:border-white/20 hover:bg-white dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/30 text-gray-800 dark:text-white shadow-xl focus:ring-gray-300 dark:focus:ring-white/50",
+  outline: "border-2 border-yellow-500 dark:border-yellow-400 text-yellow-500 dark:text-yellow-400 hover:bg-yellow-500 dark:hover:bg-yellow-400 hover:text-black dark:hover:text-black focus:ring-yellow-500 dark:focus:ring-yellow-400",
+  ghost: "text-foreground dark:text-foreground hover:bg-muted dark:hover:bg-muted focus:ring-muted dark:focus:ring-muted"
     };
 
     const sizes = {

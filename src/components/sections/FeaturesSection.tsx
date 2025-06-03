@@ -15,15 +15,15 @@ const FeatureCard: React.FC<{
   description: string;
   iconColor: string;
 }> = ({ icon, title, description, iconColor }) => (
-  <div className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-yellow-200 hover:-translate-y-2">
+  <div className="group bg-card rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-border hover:border-yellow-200 hover:-translate-y-2">
     <div className={cn(
       "w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-lg group-hover:scale-110 transition-all duration-300",
       iconColor
     )}>
       {icon}
     </div>
-    <h3 className="text-xl font-bold mb-4 text-gray-900">{title}</h3>
-    <p className="text-gray-600 leading-relaxed">{description}</p>
+    <h3 className="text-xl font-bold mb-4 text-card-foreground">{title}</h3>
+      <p className="text-muted-foreground leading-relaxed">{description}</p>
   </div>
 );
 
@@ -53,17 +53,17 @@ const FeaturesSection: React.FC<FeatureSectionProps> = ({ className }) => {
 
   return (
     <section id="features" className={cn(
-      "py-24 px-6 bg-gradient-to-b from-white to-gray-50",
+      "py-24 bg-background relative overflow-hidden",
       className
     )}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
-            {content.features.title}
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            {content.features.subtitle}
-          </p>
+          <h2 className="text-4xl md:text-5xl font-black text-foreground dark:text-foreground mb-6">
+          {content.features.title}
+        </h2>
+        <p className="text-xl text-muted-foreground dark:text-muted-foreground max-w-2xl mx-auto">
+          {content.features.subtitle}
+        </p>
         </div>
         
         <div className="grid md:grid-cols-3 gap-8">

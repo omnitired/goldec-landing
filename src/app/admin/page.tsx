@@ -293,14 +293,14 @@ const AdminPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-background dark:bg-background p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+        <div className="bg-card dark:bg-card rounded-2xl shadow-sm border border-border dark:border-border p-6 mb-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">پنل مدیریت پلتفرم‌ها</h1>
-              <p className="text-gray-600">مدیریت و ویرایش اطلاعات پلتفرم‌های عضو</p>
+              <h1 className="text-3xl font-bold text-foreground dark:text-foreground mb-2">پنل مدیریت پلتفرم‌ها</h1>
+              <p className="text-muted-foreground dark:text-muted-foreground">مدیریت و ویرایش اطلاعات پلتفرم‌های عضو</p>
             </div>
             
             <div className="flex flex-wrap gap-3">
@@ -321,7 +321,7 @@ const AdminPage = () => {
               <button
                 onClick={loadPartners}
                 disabled={isLoading}
-                className="flex items-center gap-2 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors disabled:opacity-50"
+                className="flex items-center gap-2 px-4 py-2 bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground rounded-lg hover:bg-muted/80 dark:hover:bg-muted/80 transition-colors disabled:opacity-50"
               >
                 <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
                 بروزرسانی
@@ -339,17 +339,17 @@ const AdminPage = () => {
         </div>
 
         {/* Controls */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-6">
+        <div className="bg-card dark:bg-card rounded-2xl shadow-sm border border-border dark:border-border p-6 mb-6">
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
             <div className="flex flex-col md:flex-row gap-4 flex-1">
               <div className="relative flex-1 max-w-md">
-                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground dark:text-muted-foreground w-5 h-5" />
                 <input
                   type="text"
                   placeholder="جستجو در پلتفرم‌ها..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pr-10 pl-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                  className="w-full pr-10 pl-4 py-2 border border-border dark:border-border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent bg-background dark:bg-background text-foreground dark:text-foreground"
                 />
               </div>
               
@@ -357,7 +357,7 @@ const AdminPage = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as 'name' | 'date' | 'url')}
-                  className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500"
+                  className="px-3 py-2 border border-border dark:border-border rounded-lg focus:ring-2 focus:ring-yellow-500 bg-background dark:bg-background text-foreground dark:text-foreground"
                 >
                   <option value="date">تاریخ</option>
                   <option value="name">نام</option>
@@ -367,7 +367,7 @@ const AdminPage = () => {
                 <select
                   value={sortOrder}
                   onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
-                  className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500"
+                  className="px-3 py-2 border border-border dark:border-border rounded-lg focus:ring-2 focus:ring-yellow-500 bg-background dark:bg-background text-foreground dark:text-foreground"
                 >
                   <option value="desc">نزولی</option>
                   <option value="asc">صعودی</option>
@@ -376,7 +376,7 @@ const AdminPage = () => {
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-muted-foreground dark:text-muted-foreground">
                 {filteredPartners.length} از {partners.length} پلتفرم
               </span>
               
@@ -394,28 +394,28 @@ const AdminPage = () => {
         </div>
 
         {/* Partners Table */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+        <div className="bg-card dark:bg-card rounded-2xl shadow-sm border border-border dark:border-border overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
+              <thead className="bg-muted dark:bg-muted border-b border-border dark:border-border">
                 <tr>
                   <th className="p-4 text-right">
                     <input
                       type="checkbox"
                       checked={selectedPartners.size === filteredPartners.length && filteredPartners.length > 0}
                       onChange={handleSelectAll}
-                      className="rounded border-gray-300 text-yellow-600 focus:ring-yellow-500"
+                      className="rounded border-border dark:border-border text-yellow-600 focus:ring-yellow-500"
                     />
                   </th>
-                  <th className="p-4 text-right text-sm font-medium text-gray-900">نام پلتفرم</th>
-                  <th className="p-4 text-right text-sm font-medium text-gray-900">آدرس وب‌سایت</th>
-                  <th className="p-4 text-right text-sm font-medium text-gray-900">تاریخ عضویت</th>
-                  <th className="p-4 text-right text-sm font-medium text-gray-900">عملیات</th>
+                  <th className="p-4 text-right text-sm font-medium text-foreground dark:text-foreground">نام پلتفرم</th>
+                  <th className="p-4 text-right text-sm font-medium text-foreground dark:text-foreground">آدرس وب‌سایت</th>
+                  <th className="p-4 text-right text-sm font-medium text-foreground dark:text-foreground">تاریخ عضویت</th>
+                  <th className="p-4 text-right text-sm font-medium text-foreground dark:text-foreground">عملیات</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {filteredPartners.map((partner) => (
-                  <tr key={partner.id} className="hover:bg-gray-50">
+                  <tr key={partner.id} className="hover:bg-muted/50 dark:hover:bg-muted/50">
                     <td className="p-4">
                       <input
                         type="checkbox"
@@ -429,7 +429,7 @@ const AdminPage = () => {
                           }
                           setSelectedPartners(newSelected);
                         }}
-                        className="rounded border-gray-300 text-yellow-600 focus:ring-yellow-500"
+                        className="rounded border-border dark:border-border text-yellow-600 focus:ring-yellow-500"
                       />
                     </td>
                     <td className="p-4">
@@ -450,7 +450,7 @@ const AdminPage = () => {
                           />
                           <Building2 className="w-4 h-4 text-yellow-600 hidden" />
                         </div>
-                        <span className="font-medium text-gray-900">{partner.name}</span>
+                        <span className="font-medium text-foreground dark:text-foreground">{partner.name}</span>
                       </div>
                     </td>
                     <td className="p-4">
@@ -466,8 +466,8 @@ const AdminPage = () => {
                     </td>
                     <td className="p-4">
                       <div className="flex flex-col">
-                        <span className="text-sm text-gray-900">{formatJalaliDate(partner.addedDate)}</span>
-                        <span className="text-xs text-gray-500">{getRelativeJalaliDate(partner.addedDate)}</span>
+                        <span className="text-sm text-foreground dark:text-foreground">{formatJalaliDate(partner.addedDate)}</span>
+                        <span className="text-xs text-muted-foreground dark:text-muted-foreground">{getRelativeJalaliDate(partner.addedDate)}</span>
                       </div>
                     </td>
                     <td className="p-4">
@@ -505,10 +505,10 @@ const AdminPage = () => {
         {/* Edit Modal */}
         {isEditing && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-card dark:bg-card rounded-2xl shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-bold text-gray-900">
+                  <h2 className="text-xl font-bold text-foreground dark:text-foreground">
                     {editingPartner?.id ? 'ویرایش پلتفرم' : 'افزودن پلتفرم جدید'}
                   </h2>
                   <button
@@ -517,7 +517,7 @@ const AdminPage = () => {
                       setEditingPartner(null);
                       setUploadedImage(null);
                     }}
-                    className="p-2 text-gray-400 hover:text-gray-600"
+                    className="p-2 text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-foreground"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -525,43 +525,43 @@ const AdminPage = () => {
 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-foreground dark:text-foreground mb-1">
                       نام پلتفرم *
                     </label>
                     <input
                       type="text"
                       value={editingPartner?.name || ''}
                       onChange={(e) => setEditingPartner(prev => prev ? { ...prev, name: e.target.value } : null)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-border dark:border-border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent bg-background dark:bg-background text-foreground dark:text-foreground"
                       placeholder="نام پلتفرم را وارد کنید"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-foreground dark:text-foreground mb-1">
                       آدرس وب‌سایت *
                     </label>
                     <input
                       type="url"
                       value={editingPartner?.url || ''}
                       onChange={(e) => setEditingPartner(prev => prev ? { ...prev, url: e.target.value } : null)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-border dark:border-border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent bg-background dark:bg-background text-foreground dark:text-foreground"
                       placeholder="https://example.com"
                     />
                   </div>
 
                   {/* Photo Upload Section */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-foreground dark:text-foreground mb-2">
                       لوگو پلتفرم
                     </label>
                     
                     {/* Current/Uploaded Image Preview */}
                     {(uploadedImage || editingPartner?.logo) && (
-                      <div className="mb-3 p-3 border border-gray-200 rounded-lg bg-gray-50">
+                      <div className="mb-3 p-3 border border-border dark:border-border rounded-lg bg-muted dark:bg-muted">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
-                            <div className="relative w-12 h-12 bg-white rounded-lg border border-gray-200 flex items-center justify-center overflow-hidden">
+                            <div className="relative w-12 h-12 bg-background dark:bg-background rounded-lg border border-border dark:border-border flex items-center justify-center overflow-hidden">
                               <Image
                                 src={uploadedImage || editingPartner?.logo || ''}
                                 alt="Logo preview"
@@ -575,11 +575,11 @@ const AdminPage = () => {
                                   if (fallback) fallback.style.display = 'flex';
                                 }}
                               />
-                              <ImageIcon className="w-6 h-6 text-gray-400 hidden" />
+                              <ImageIcon className="w-6 h-6 text-muted-foreground dark:text-muted-foreground hidden" />
                             </div>
                             <div>
-                              <p className="text-sm font-medium text-gray-900">تصویر انتخاب شده</p>
-                              <p className="text-xs text-gray-500">
+                              <p className="text-sm font-medium text-foreground dark:text-foreground">تصویر انتخاب شده</p>
+                              <p className="text-xs text-muted-foreground dark:text-muted-foreground">
                                 {uploadedImage ? 'آپلود شده' : 'تصویر فعلی'}
                               </p>
                             </div>
@@ -597,16 +597,16 @@ const AdminPage = () => {
 
                     {/* Upload Button */}
                     <div className="space-y-2">
-                      <label className="flex items-center justify-center gap-2 w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-yellow-400 hover:bg-yellow-50 cursor-pointer transition-colors group">
+                      <label className="flex items-center justify-center gap-2 w-full px-4 py-3 border-2 border-dashed border-border dark:border-border rounded-lg hover:border-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-50/10 cursor-pointer transition-colors group">
                         {isUploading ? (
                           <>
-                            <RefreshCw className="w-5 h-5 text-gray-400 animate-spin" />
-                            <span className="text-sm text-gray-600">در حال آپلود...</span>
+                            <RefreshCw className="w-5 h-5 text-muted-foreground dark:text-muted-foreground animate-spin" />
+                            <span className="text-sm text-muted-foreground dark:text-muted-foreground">در حال آپلود...</span>
                           </>
                         ) : (
                           <>
-                            <Camera className="w-5 h-5 text-gray-400 group-hover:text-yellow-600" />
-                            <span className="text-sm text-gray-600 group-hover:text-yellow-700">
+                            <Camera className="w-5 h-5 text-muted-foreground dark:text-muted-foreground group-hover:text-yellow-600" />
+                            <span className="text-sm text-muted-foreground dark:text-muted-foreground group-hover:text-yellow-700">
                               {uploadedImage || editingPartner?.logo ? 'تغییر تصویر' : 'انتخاب تصویر'}
                             </span>
                           </>
@@ -619,14 +619,14 @@ const AdminPage = () => {
                           className="hidden"
                         />
                       </label>
-                      <p className="text-xs text-gray-500 text-center">
+                      <p className="text-xs text-muted-foreground dark:text-muted-foreground text-center">
                         فرمت‌های مجاز: JPG، PNG، GIF، SVG، WebP (حداکثر 5MB)
                       </p>
                     </div>
 
                     {/* Manual Logo Path Input */}
                     <div className="mt-3">
-                      <label className="block text-xs font-medium text-gray-600 mb-1">
+                      <label className="block text-xs font-medium text-muted-foreground dark:text-muted-foreground mb-1">
                         یا مسیر لوگو را وارد کنید
                       </label>
                       <input
@@ -636,27 +636,27 @@ const AdminPage = () => {
                           setEditingPartner(prev => prev ? { ...prev, logo: e.target.value } : null);
                           setUploadedImage(null);
                         }}
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                        className="w-full px-3 py-2 text-sm border border-border dark:border-border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent bg-background dark:bg-background text-foreground dark:text-foreground"
                         placeholder="/logos/platform-name.svg"
                       />
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
                         اگر خالی بگذارید، لوگو به صورت خودکار تولید می‌شود
                       </p>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-foreground dark:text-foreground mb-1">
                       تاریخ عضویت (شمسی)
                     </label>
                     <input
                       type="text"
                       value={editingPartner?.addedDate || ''}
                       onChange={(e) => setEditingPartner(prev => prev ? { ...prev, addedDate: e.target.value } : null)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-border dark:border-border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent bg-background dark:bg-background text-foreground dark:text-foreground"
                       placeholder="1404/01/15"
                     />
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
                       فرمت: YYYY/MM/DD (مثال: 1404/01/15)
                     </p>
                   </div>
@@ -677,7 +677,7 @@ const AdminPage = () => {
                       setEditingPartner(null);
                       setUploadedImage(null);
                     }}
-                    className="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                    className="flex-1 px-4 py-2 bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground rounded-lg hover:bg-muted/80 dark:hover:bg-muted/80 transition-colors"
                   >
                     انصراف
                   </button>
@@ -690,19 +690,19 @@ const AdminPage = () => {
         {/* Preview Modal */}
         {showPreview && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full">
+            <div className="bg-card dark:bg-card rounded-2xl shadow-xl max-w-lg w-full">
               <div className="p-6">
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-bold text-gray-900">پیش‌نمایش پلتفرم</h2>
+                  <h2 className="text-xl font-bold text-foreground dark:text-foreground">پیش‌نمایش پلتفرم</h2>
                   <button
                     onClick={() => setShowPreview(null)}
-                    className="p-2 text-gray-400 hover:text-gray-600"
+                    className="p-2 text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-foreground"
                   >
                     <X className="w-5 h-5" />
                   </button>
                 </div>
 
-                <div className="bg-gray-50 rounded-xl p-6 mb-6">
+                <div className="bg-muted dark:bg-muted rounded-xl p-6 mb-6">
                   <div className="flex flex-col items-center text-center">
                     <div className="mb-4">
                       <Image
@@ -723,14 +723,14 @@ const AdminPage = () => {
                       </div>
                     </div>
                     
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{showPreview.name}</h3>
-                    <p className="text-gray-600 mb-4">{showPreview.url.replace(/^https?:\/\//, '')}</p>
+                    <h3 className="text-xl font-bold text-foreground dark:text-foreground mb-2">{showPreview.name}</h3>
+                    <p className="text-muted-foreground dark:text-muted-foreground mb-4">{showPreview.url.replace(/^https?:\/\//, '')}</p>
                     
-                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-muted-foreground">
                       <Calendar className="w-4 h-4" />
                       <span>عضویت از {getRelativeJalaliDate(showPreview.addedDate)}</span>
                     </div>
-                    <div className="text-xs text-gray-400 mt-1">
+                    <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70 mt-1">
                       {formatJalaliDate(showPreview.addedDate)}
                     </div>
                   </div>
@@ -748,7 +748,7 @@ const AdminPage = () => {
                   </a>
                   <button
                     onClick={() => setShowPreview(null)}
-                    className="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                    className="flex-1 px-4 py-2 bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground rounded-lg hover:bg-muted/80 dark:hover:bg-muted/80 transition-colors"
                   >
                     بستن
                   </button>
@@ -761,10 +761,10 @@ const AdminPage = () => {
         {/* Delete Confirmation Modal */}
         {showDeleteConfirm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl shadow-xl max-w-sm w-full">
+            <div className="bg-card dark:bg-card rounded-2xl shadow-xl max-w-sm w-full">
               <div className="p-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">تأیید حذف</h3>
-                <p className="text-gray-600 mb-6">
+                <h3 className="text-lg font-bold text-foreground dark:text-foreground mb-4">تأیید حذف</h3>
+                <p className="text-muted-foreground dark:text-muted-foreground mb-6">
                   آیا از حذف این پلتفرم اطمینان دارید؟ این عمل غیرقابل بازگشت است.
                 </p>
                 <div className="flex gap-3">
@@ -776,7 +776,7 @@ const AdminPage = () => {
                   </button>
                   <button
                     onClick={() => setShowDeleteConfirm(null)}
-                    className="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                    className="flex-1 px-4 py-2 bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground rounded-lg hover:bg-muted/80 dark:hover:bg-muted/80 transition-colors"
                   >
                     انصراف
                   </button>

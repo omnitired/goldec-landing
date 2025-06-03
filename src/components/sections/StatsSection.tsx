@@ -13,12 +13,12 @@ const StatCard: React.FC<{
   title: string;
   description: string;
 }> = ({ value, title, description }) => (
-  <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-10 border border-white/10 hover:border-yellow-400/30 transition-all duration-300 hover:scale-105 shadow-2xl">
+  <div className="bg-card backdrop-blur-sm rounded-3xl p-10 border border-border hover:border-yellow-400/30 transition-all duration-300 hover:scale-105 shadow-2xl">
     <div className="text-6xl md:text-7xl font-black text-transparent bg-gradient-to-r from-yellow-400 to-amber-400 bg-clip-text mb-6">
       {value}
     </div>
-    <div className="text-2xl font-bold mb-3 text-white">{title}</div>
-    <div className="text-gray-300">{description}</div>
+    <div className="text-2xl font-bold mb-3 text-card-foreground">{title}</div>
+    <div className="text-muted-foreground">{description}</div>
   </div>
 );
 
@@ -45,7 +45,7 @@ const StatsSection: React.FC<StatsSectionProps> = ({ className }) => {
 
   return (
     <section id="stats" className={cn(
-      "py-24 px-6 bg-gradient-to-br from-slate-900 via-gray-900 to-black text-white",
+      "py-24 bg-background relative overflow-hidden",
       className
     )}>
       <div className="max-w-7xl mx-auto text-center">
@@ -53,7 +53,7 @@ const StatsSection: React.FC<StatsSectionProps> = ({ className }) => {
           <h2 className="text-4xl md:text-5xl font-black mb-6">
             {content.stats.title}
           </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             {content.stats.subtitle}
           </p>
         </div>

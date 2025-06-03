@@ -15,7 +15,7 @@ const CTASection: React.FC<CTASectionProps> = ({ className }) => {
 
   return (
     <section className={cn(
-      "py-24 px-6 bg-gradient-to-br from-yellow-500 via-amber-500 to-orange-500 text-white",
+      "py-24 bg-background relative overflow-hidden",
       className
     )}>
       <div className="max-w-7xl mx-auto text-center">
@@ -28,7 +28,7 @@ const CTASection: React.FC<CTASectionProps> = ({ className }) => {
           <Button
             variant="primary"
             size="lg"
-            className="bg-white text-gray-900 hover:bg-gray-50 shadow-2xl hover:shadow-white/25"
+            className="shadow-2xl hover:shadow-white/25"
             leftIcon={<CheckIcon className="w-6 h-6 group-hover:rotate-12 transition-transform" />}
           >
             {content.cta.apiAccess}

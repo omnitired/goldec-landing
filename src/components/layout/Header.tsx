@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useContent } from '@/hooks/useContent';
 import { ShieldIcon, MenuIcon } from '@/components/ui/Icons';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 interface HeaderProps {
   className?: string;
@@ -17,6 +18,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
     { href: '#features', label: content.nav.features },
     { href: '#how-it-works', label: content.nav.howItWorks },
     { href: '#stats', label: content.nav.stats },
+    { href: '#partners', label: 'پلتفرم‌ها' },
     { href: '#contact', label: content.nav.contact },
   ];
 
@@ -30,52 +32,58 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
   return (
     <nav className={cn(
-      "sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 text-gray-900 py-4 px-6 shadow-sm",
+      "sticky top-0 z-50 bg-gradient-to-r from-slate-900/95 via-gray-900/95 to-slate-900/95 dark:from-slate-950/95 dark:via-gray-950/95 dark:to-slate-950/95 backdrop-blur-xl border-b border-yellow-500/20 dark:border-yellow-400/30 text-white py-4 px-6 shadow-2xl shadow-black/20 dark:shadow-black/40",
       className
     )}>
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
-        <div className="flex items-center space-x-3 space-x-reverse">
-          <div className="w-10 h-10 bg-gradient-to-br from-yellow-500 via-yellow-600 to-amber-600 rounded-xl flex items-center justify-center shadow-lg">
-            <ShieldIcon className="w-6 h-6 text-white" />
+        <div className="flex items-center space-x-3 space-x-reverse group">
+          <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 via-yellow-500 to-amber-600 rounded-xl flex items-center justify-center shadow-xl shadow-yellow-500/25 group-hover:shadow-yellow-500/40 transition-all duration-300 group-hover:scale-105">
+            <ShieldIcon className="w-7 h-7 text-white drop-shadow-lg" />
           </div>
-          <div className="text-2xl font-bold bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent">
+          <div className="text-2xl font-black bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-500 bg-clip-text text-transparent drop-shadow-lg">
             {content.brand}
           </div>
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex space-x-8 space-x-reverse">
+        <div className="hidden md:flex items-center space-x-6 space-x-reverse">
+          <ThemeToggle />
           {navItems.map((item) => (
             <button
               key={item.href}
               onClick={() => scrollToSection(item.href)}
-              className="hover:text-yellow-600 transition-all duration-300 font-medium text-gray-700 hover:scale-105 cursor-pointer"
+              className="relative px-3 py-2 text-white/90 hover:text-yellow-400 transition-all duration-300 font-semibold hover:scale-105 cursor-pointer group"
             >
-              {item.label}
+              <span className="relative z-10">{item.label}</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/0 via-yellow-500/10 to-yellow-500/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-yellow-400 to-amber-500 group-hover:w-full transition-all duration-300" />
             </button>
           ))}
         </div>
 
         {/* Mobile Menu Button */}
-        <button
-          className="md:hidden p-2 hover:bg-gray-100 rounded-xl transition-colors"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          <MenuIcon className="w-6 h-6" />
-        </button>
+        <div className="md:hidden flex items-center space-x-4 space-x-reverse">
+          <ThemeToggle />
+          <button
+            className="p-3 hover:bg-white/10 dark:hover:bg-white/10 rounded-xl transition-all duration-300 hover:scale-105 border border-white/20 dark:border-white/20 hover:border-yellow-400/50"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <MenuIcon className="w-6 h-6 text-white" />
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden mt-4 pb-4 border-t border-gray-200">
-          <div className="flex flex-col space-y-4 pt-4">
+        <div className="md:hidden mt-4 pb-4 border-t border-yellow-500/20">
+          <div className="flex flex-col space-y-3 pt-4 px-2">
             {navItems.map((item) => (
               <button
                 key={item.href}
                 onClick={() => scrollToSection(item.href)}
-                className="text-right py-2 px-4 text-gray-700 hover:text-yellow-600 hover:bg-gray-50 rounded-lg transition-colors"
+                className="text-right py-3 px-4 text-white/90 dark:text-white/90 hover:text-yellow-400 hover:bg-white/10 dark:hover:bg-white/10 rounded-lg transition-all duration-300 font-semibold border border-transparent hover:border-yellow-400/30"
               >
                 {item.label}
               </button>

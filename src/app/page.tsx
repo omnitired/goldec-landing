@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Layout,
   HeroSection,
   FeaturesSection,
   HowItWorksSection,
@@ -9,17 +8,24 @@ import {
   CTASection,
 } from '@/components';
 import AdminNavLink from '@/components/ui/AdminNavLink';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import { cn } from '@/lib/utils';
 
 export default function Home() {
   return (
-    <Layout>
-      <HeroSection />
-      <FeaturesSection />
-      <HowItWorksSection />
-      <StatsSection />
-      <PartnersSection />
-      <CTASection />
-      <AdminNavLink />
-    </Layout>
+    <div className={cn("min-h-screen bg-background font-sans transition-colors duration-300")}>
+      <Header />
+      <main>
+        <HeroSection />
+        <FeaturesSection />
+        <HowItWorksSection />
+        <StatsSection />
+        <PartnersSection />
+        <CTASection />
+        <AdminNavLink />
+      </main>
+      <Footer />
+    </div>
   );
 }

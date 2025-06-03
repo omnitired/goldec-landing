@@ -23,7 +23,7 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ partner }) => {
   const [imageError, setImageError] = useState(false);
   
   return (
-    <div className="group relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-yellow-300 hover:-translate-y-1">
+    <div className="group relative bg-card dark:bg-card rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-border dark:border-border hover:border-yellow-300 dark:hover:border-yellow-400 hover:-translate-y-1">
       <div className="flex flex-col h-full">
         <div className="flex items-center justify-center mb-4 h-16">
           {!imageError ? (
@@ -36,8 +36,8 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ partner }) => {
               onError={() => setImageError(true)}
             />
           ) : (
-            <div className="w-12 h-12 bg-gradient-to-br from-yellow-100 to-amber-100 rounded-xl flex items-center justify-center">
-              <div className="text-yellow-600 font-bold text-xs text-center leading-tight">
+            <div className="w-12 h-12 bg-gradient-to-br from-yellow-100 to-amber-100 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-xl flex items-center justify-center">
+              <div className="text-yellow-600 dark:text-yellow-400 font-bold text-xs text-center leading-tight">
                 {partner.name.split(' ').map(word => word[0]).join('').substring(0, 3)}
               </div>
             </div>
@@ -45,13 +45,13 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ partner }) => {
         </div>
         
         <div className="flex-1 text-center">
-          <h3 className="font-bold text-gray-900 mb-2 group-hover:text-yellow-600 transition-colors">
+          <h3 className="font-bold text-card-foreground dark:text-card-foreground mb-2 group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors">
             {partner.name}
           </h3>
-          <p className="text-sm text-gray-500 mb-2 break-all">
+          <p className="text-sm text-muted-foreground dark:text-muted-foreground mb-2 break-all">
             {partner.url.replace(/^https?:\/\//, '')}
           </p>
-          <div className="flex flex-col items-center justify-center gap-1 text-xs text-gray-400 mb-2">
+          <div className="flex flex-col items-center justify-center gap-1 text-xs text-muted-foreground dark:text-muted-foreground mb-2">
             <div className="flex items-center gap-1">
               <Calendar className="w-3 h-3" />
               <span>
@@ -60,7 +60,7 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ partner }) => {
                   : 'نامشخص'}
               </span>
             </div>
-            <div className="text-xs text-gray-300" title={formatJalaliDate(partner.addedDate)}>
+            <div className="text-xs text-muted-foreground/70 dark:text-muted-foreground/70" title={formatJalaliDate(partner.addedDate)}>
               {partner.addedDate && partner.addedDate !== 'تاریخ نامعتبر' 
                 ? formatJalaliDate(partner.addedDate) 
                 : 'تاریخ عضویت نامشخص'}
@@ -152,33 +152,33 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
   };
 
   return (
-    <section className={cn(
-      "py-24 px-6 bg-gradient-to-b from-white via-gray-50/30 to-white",
+    <section id="partners" className={cn(
+      "py-24 px-6 bg-background",
       className
     )}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground dark:text-foreground mb-6">
             <span className="bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent">
               {content.partners.title1}
             </span>{' '}
             {content.partners.title2}
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-muted-foreground dark:text-muted-foreground max-w-2xl mx-auto mb-8">
             {content.partners.subtitle}
           </p>
           
           {/* Stats */}
           <div className="flex items-center justify-center gap-8 mb-8">
             <div className="text-center">
-              <div className="text-3xl font-bold text-yellow-600">{totalPartners}</div>
-              <div className="text-sm text-gray-500">پلتفرم فعال</div>
+              <div className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">{totalPartners}</div>
+              <div className="text-sm text-muted-foreground dark:text-muted-foreground">پلتفرم فعال</div>
             </div>
-            <div className="w-px h-12 bg-gray-300"></div>
+            <div className="w-px h-12 bg-border dark:bg-border"></div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-amber-600">{displayedPartners.length}</div>
-              <div className="text-sm text-gray-500">در حال نمایش</div>
+              <div className="text-3xl font-bold text-amber-600 dark:text-amber-400">{displayedPartners.length}</div>
+              <div className="text-sm text-muted-foreground dark:text-muted-foreground">در حال نمایش</div>
             </div>
           </div>
         </div>
@@ -189,38 +189,38 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
             <div className="flex flex-col md:flex-row gap-4 items-center justify-center">
               {/* Search Input */}
               <div className="relative flex-1 max-w-md">
-                <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder="جستجو در پلتفرم‌ها..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pr-12 pl-4 py-3 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent text-right transition-all duration-200"
-                />
+                <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground dark:text-muted-foreground w-5 h-5" />
+              <input
+                type="text"
+                placeholder="جستجو در پلتفرم‌ها..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pr-12 pl-4 py-3 bg-input dark:bg-input border border-border dark:border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent text-right transition-all duration-200 text-foreground dark:text-foreground placeholder:text-muted-foreground dark:placeholder:text-muted-foreground"
+              />
               </div>
 
               {/* Sort Dropdown */}
               <div className="relative">
                 <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as SortOption)}
-                  className="appearance-none bg-white border border-gray-200 rounded-2xl px-4 py-3 pr-10 pl-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 cursor-pointer"
-                >
-                  <option value="date-newest">جدیدترین</option>
-                  <option value="date-oldest">قدیمی‌ترین</option>
-                  <option value="name-asc">نام (الف تا ی)</option>
-                  <option value="name-desc">نام (ی تا الف)</option>
-                  <option value="url-asc">آدرس (A تا Z)</option>
-                  <option value="url-desc">آدرس (Z تا A)</option>
-                </select>
-                <ArrowUpDown className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as SortOption)}
+                className="appearance-none bg-input dark:bg-input border border-border dark:border-border rounded-2xl px-4 py-3 pr-10 pl-4 text-foreground dark:text-foreground focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 cursor-pointer"
+              >
+                <option value="date-newest">جدیدترین</option>
+                <option value="date-oldest">قدیمی‌ترین</option>
+                <option value="name-asc">نام (الف تا ی)</option>
+                <option value="name-desc">نام (ی تا الف)</option>
+                <option value="url-asc">آدرس (A تا Z)</option>
+                <option value="url-desc">آدرس (Z تا A)</option>
+              </select>
+              <ArrowUpDown className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground dark:text-muted-foreground w-4 h-4 pointer-events-none" />
               </div>
             </div>
           </div>
           
           {(searchTerm || sortBy !== 'date-newest') && (
             <div className="text-center mt-4 flex flex-wrap items-center justify-center gap-4">
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-muted-foreground dark:text-muted-foreground">
                 {totalPartners} نتیجه
                 {searchTerm && (
                   <span> برای &ldquo;{searchTerm}&rdquo;</span>
@@ -231,20 +231,15 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
               </span>
               
               <div className="flex gap-2">
-                {searchTerm && (
+                {(searchTerm || sortBy !== 'date-newest') && (
                   <button
-                    onClick={() => setSearchTerm('')}
-                    className="text-sm text-yellow-600 hover:text-yellow-700 bg-yellow-50 hover:bg-yellow-100 px-3 py-1 rounded-lg transition-colors"
+                    className="text-sm text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-foreground bg-muted dark:bg-muted hover:bg-muted/80 dark:hover:bg-muted/80 px-3 py-1 rounded-lg transition-colors"
+                    onClick={() => {
+                      setSearchTerm('');
+                      setSortBy('date-newest');
+                    }}
                   >
-                    پاک کردن جستجو
-                  </button>
-                )}
-                {sortBy !== 'date-newest' && (
-                  <button
-                    onClick={() => setSortBy('date-newest')}
-                    className="text-sm text-gray-600 hover:text-gray-700 bg-gray-50 hover:bg-gray-100 px-3 py-1 rounded-lg transition-colors"
-                  >
-                    حذف مرتب‌سازی
+                    پاک کردن فیلترها
                   </button>
                 )}
               </div>
@@ -268,7 +263,7 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
                 className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-yellow-500 to-amber-500 text-white rounded-2xl font-semibold hover:from-yellow-600 hover:to-amber-600 transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 نمایش بیشتر
-                <span className="bg-white/20 px-2 py-1 rounded-lg text-sm">
+                <span className="bg-white/20 dark:bg-white/10 px-2 py-1 rounded-lg text-sm">
                   +{Math.min(partnersData.settings.expandStep, totalPartners - displayCount)}
                 </span>
                 <ChevronDown className="w-5 h-5" />
@@ -287,12 +282,12 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
 
         {/* Bottom Text */}
         <div className="mt-16 text-center">
-          <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+          <p className="text-muted-foreground dark:text-muted-foreground text-lg max-w-3xl mx-auto">
             {content.partners.bottomText}
           </p>
           
           {/* Trust Indicators */}
-          <div className="mt-8 flex items-center justify-center gap-8 text-sm text-gray-500">
+          <div className="mt-8 flex items-center justify-center gap-8 text-sm text-muted-foreground dark:text-muted-foreground">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               تایید شده توسط اتحادیه

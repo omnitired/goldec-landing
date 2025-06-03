@@ -19,7 +19,7 @@ const FooterLink: React.FC<{
     <a
       href={href}
       onClick={onClick}
-      className="hover:text-yellow-400 transition-colors text-gray-300 flex items-center group cursor-pointer"
+      className="hover:text-yellow-400 transition-colors text-white/70 flex items-center group cursor-pointer"
     >
       <span className="ml-3 group-hover:translate-x-1 transition-transform">
         {icon}
@@ -57,14 +57,14 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
 
   return (
     <footer className={cn(
-      "bg-gradient-to-br from-slate-900 via-gray-900 to-black text-white py-20 px-6",
+      "bg-gradient-to-br from-slate-900 via-gray-900 to-black text-white py-20 px-6 transition-colors duration-300",
       className
     )}>
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
         {/* Links Section */}
         <div>
           <h3 className="text-xl font-bold mb-8 text-yellow-400">
-            {content.footer.linksTitle}
+            {content.footer.title}
           </h3>
           <ul className="space-y-4">
             <FooterLink
@@ -103,8 +103,8 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
           <h3 className="text-xl font-bold mb-8 text-yellow-400">
             {content.footer.aboutTitle}
           </h3>
-          <p className="text-gray-300 leading-relaxed">
-            {content.footer.aboutText}
+          <p className="text-white/70 leading-relaxed">
+            {content.footer.description}
           </p>
         </div>
 
@@ -114,12 +114,12 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
             {content.footer.contactTitle}
           </h3>
           <div className="space-y-4">
-            <p className="text-gray-300 flex items-center group">
-              <EmailIcon className="w-5 h-5 ml-3 group-hover:scale-110 transition-transform text-yellow-400" />
+            <p className="text-white/70 flex items-center group">
+              <EmailIcon className="w-5 h-5 ml-3 group-hover:text-yellow-400 transition-colors" />
               {content.footer.email}
             </p>
-            <p className="text-gray-300 flex items-center group">
-              <PhoneIcon className="w-5 h-5 ml-3 group-hover:scale-110 transition-transform text-yellow-400" />
+            <p className="text-white/70 flex items-center group">
+              <PhoneIcon className="w-5 h-5 ml-3 group-hover:text-yellow-400 transition-colors" />
               {content.footer.phone}
             </p>
           </div>
@@ -151,10 +151,8 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
       </div>
 
       {/* Copyright */}
-      <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-gray-700 text-center text-gray-400">
-        <div className="flex items-center justify-center mb-2">
-          <span className="text-sm">{content.footer.copyright}</span>
-        </div>
+      <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/20 text-center text-white/60">
+        <p>&copy; {new Date().getFullYear()} {content.brand}. {content.footer.copyright}</p>
       </div>
     </footer>
   );
