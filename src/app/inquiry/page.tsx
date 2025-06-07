@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/contexts/ThemeContext';
 import Header from '@/components/layout/Header';
@@ -121,9 +122,11 @@ export default function InquiryPage() {
                 <div className="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700">
                   <span className="text-gray-600 dark:text-gray-400 font-medium">پلتفرم:</span>
                   <div className="flex items-center space-x-2 space-x-reverse">
-                    <img 
+                    <Image 
                       src={`/logos/${result.platform.toLowerCase().replace(/\s+/g, '-')}.svg`}
                       alt={result.platform}
+                      width={24}
+                      height={24}
                       className="w-6 h-6"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;

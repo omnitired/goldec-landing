@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from '@/contexts/ThemeContext';
-import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: "گلدک - سامانه نظارت بر معاملات طلای آب‌شده",

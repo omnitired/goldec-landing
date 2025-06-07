@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { useContent } from '@/hooks/useContent';
 import { useTheme } from '@/contexts/ThemeContext';
 import Button from '@/components/ui/Button';
-import { StarIcon, ArrowRightIcon } from '@/components/ui/Icons';
+import { StarIcon } from '@/components/ui/Icons';
 import { useState, useEffect } from 'react';
 
 interface HeroSectionProps {
@@ -417,10 +417,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className }) => {
           
           {/* Subtitles */}
           <p className="hero-subtitle text-xl md:text-2xl mb-6 font-medium max-w-3xl mx-auto drop-shadow-md animate-fade-in-up animation-delay-200">
-            {content.hero.subtitle}
+            {content.hero.subtitle1}
           </p>
           <p className="hero-description text-lg md:text-xl mb-12 max-w-2xl mx-auto animate-fade-in-up animation-delay-400">
-            {content.hero.description}
+            {content.hero.subtitle2}
           </p>
           
           {/* CTA Buttons */}

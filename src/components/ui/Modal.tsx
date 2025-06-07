@@ -3,7 +3,6 @@
 import React from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/contexts/ThemeContext';
 
 interface ModalProps {
   open: boolean;
@@ -32,7 +31,6 @@ const Modal: React.FC<ModalProps> = ({
   closeOnOverlayClick = true,
   size = 'md'
 }) => {
-  const { theme } = useTheme();
 
   const sizeClasses = {
     sm: 'max-w-sm',

@@ -3,9 +3,7 @@ import {
   HeroSection,
   FeaturesSection,
   HowItWorksSection,
-  StatsSection,
   PartnersSection,
-  CTASection,
 } from '@/components';
 import AdminNavLink from '@/components/ui/AdminNavLink';
 import Header from '@/components/layout/Header';

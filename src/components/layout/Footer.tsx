@@ -3,31 +3,13 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useContent } from '@/hooks/useContent';
-import { HomeIcon, StarIcon, DocumentIcon, EmailIcon, PhoneIcon, TwitterIcon, InstagramIcon, PinterestIcon } from '@/components/ui/Icons';
+import { PhoneIcon, TwitterIcon, InstagramIcon, PinterestIcon } from '@/components/ui/Icons';
 
 interface FooterProps {
   className?: string;
 }
 
-const FooterLink: React.FC<{
-  href: string;
-  icon: React.ReactNode;
-  children: React.ReactNode;
-  onClick?: () => void;
-}> = ({ href, icon, children, onClick }) => (
-  <li>
-    <a
-      href={href}
-      onClick={onClick}
-      className="hover:text-blue-400 transition-colors text-white/70 flex items-center group cursor-pointer"
-    >
-      <span className="ml-3 group-hover:translate-x-1 transition-transform">
-        {icon}
-      </span>
-      {children}
-    </a>
-  </li>
-);
+
 
 const SocialLink: React.FC<{
   href: string;
@@ -47,13 +29,6 @@ const SocialLink: React.FC<{
 
 const Footer: React.FC<FooterProps> = ({ className }) => {
   const content = useContent();
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.querySelector(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <footer className={cn(
@@ -104,7 +79,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
             {content.footer.aboutTitle}
           </h3>
           <p className="text-white/70 leading-relaxed">
-            {content.footer.description}
+            {content.footer.aboutText}
           </p>
         </div>
 

@@ -90,13 +90,13 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
   const [sortBy, setSortBy] = useState<SortOption>('date-newest');
 
   const filteredAndSortedPartners = useMemo(() => {
-    const filtered = partnersData.partners.filter(partner =>
-      partner.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      partner.url.toLowerCase().includes(searchTerm.toLowerCase())
+    const filtered = partnersData.partners.filter((partner: Partner) =>
+      partner.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      partner.url?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     // Sort the filtered results
-    const sorted = [...filtered].sort((a, b) => {
+    const sorted = [...filtered].sort((a: Partner, b: Partner) => {
       switch (sortBy) {
         case 'name-asc':
           return a.name.localeCompare(b.name, 'fa');
@@ -118,7 +118,7 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
     return sorted;
   }, [searchTerm, sortBy]);
 
-  const displayedPartners = useMemo(() => {
+  const displayedPartners = useMemo((): Partner[] => {
     return isExpanded ? filteredAndSortedPartners : filteredAndSortedPartners.slice(0, displayCount);
   }, [filteredAndSortedPartners, displayCount, isExpanded]);
 

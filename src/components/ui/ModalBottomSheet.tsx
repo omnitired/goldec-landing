@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import Modal from './Modal';
 import BottomSheet from './BottomSheet';
-import { cn } from '@/lib/utils';
 
 interface ModalBottomSheetProps {
   open: boolean;

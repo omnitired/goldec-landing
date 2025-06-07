@@ -3,7 +3,6 @@
 import React from 'react';
 import { Drawer } from 'vaul';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/contexts/ThemeContext';
 
 interface BottomSheetProps {
   open: boolean;
@@ -40,18 +39,28 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   dismissible = true,
   shouldScaleBackground = true
 }) => {
-  const { theme } = useTheme();
+
+  // Prepare props based on whether snapPoints are provided
+  const drawerProps = snapPoints
+    ? {
+        open,
+        onOpenChange,
+        snapPoints,
+        ...(fadeFromIndex !== undefined && { fadeFromIndex }),
+        modal,
+        dismissible,
+        shouldScaleBackground,
+      }
+    : {
+        open,
+        onOpenChange,
+        modal,
+        dismissible,
+        shouldScaleBackground,
+      };
 
   return (
-    <Drawer.Root
-      open={open}
-      onOpenChange={onOpenChange}
-      snapPoints={snapPoints}
-      fadeFromIndex={fadeFromIndex}
-      modal={modal}
-      dismissible={dismissible}
-      shouldScaleBackground={shouldScaleBackground}
-    >
+    <Drawer.Root {...drawerProps}>
       <Drawer.Portal>
         <Drawer.Overlay
           className={cn(

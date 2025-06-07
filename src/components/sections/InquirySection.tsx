@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/contexts/ThemeContext';
 import { ShieldIcon } from '@/components/ui/Icons';
 import Button from '@/components/ui/Button';
 import ModalBottomSheet from '@/components/ui/ModalBottomSheet';
@@ -22,88 +21,77 @@ interface InquirySectionProps {
   className?: string;
 }
 
-interface SwipeHandlers {
-  onTouchStart: (e: React.TouchEvent) => void;
-  onTouchMove: (e: React.TouchEvent) => void;
-  onTouchEnd: () => void;
-  onMouseDown: (e: React.MouseEvent) => void;
-}
-
 // Constants
-const SWIPE_THRESHOLD = 100;
-const ANIMATION_DURATION = 300;
 const MOCK_API_DELAY = 1500;
 
-// Custom hook for swipe functionality
-const useSwipeGesture = (onDismiss: () => void): [number, SwipeHandlers] => {
-  const [dragY, setDragY] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const startY = useRef(0);
-  const currentY = useRef(0);
+// Custom hook for swipe functionality (currently unused)
+  // const useSwipeGesture = (onDismiss: () => void): [number, SwipeHandlers] => {
+  //   const [dragY, setDragY] = useState(0);
+  //   const [isDragging, setIsDragging] = useState(false);
+  //   const startY = useRef(0);
+  //   const currentY = useRef(0);
 
-  const handleStart = useCallback((clientY: number) => {
-    setIsDragging(true);
-    startY.current = clientY;
-    currentY.current = clientY;
-  }, []);
+  //   const handleStart = useCallback((clientY: number) => {
+  //     setIsDragging(true);
+  //     startY.current = clientY;
+  //     currentY.current = clientY;
+  //   }, []);
 
-  const handleMove = useCallback((clientY: number) => {
-    if (!isDragging) return;
-    
-    currentY.current = clientY;
-    const deltaY = Math.max(0, clientY - startY.current);
-    setDragY(deltaY);
-  }, [isDragging]);
+  //   const handleMove = useCallback((clientY: number) => {
+  //     if (!isDragging) return;
+  //     
+  //     currentY.current = clientY;
+  //     const deltaY = Math.max(0, clientY - startY.current);
+  //     setDragY(deltaY);
+  //   }, [isDragging]);
 
-  const handleEnd = useCallback(() => {
-    if (!isDragging) return;
-    
-    const deltaY = currentY.current - startY.current;
-    
-    if (deltaY > SWIPE_THRESHOLD) {
-      onDismiss();
-    }
-    
-    setIsDragging(false);
-    setDragY(0);
-  }, [isDragging, onDismiss]);
+  //   const handleEnd = useCallback(() => {
+  //     if (!isDragging) return;
+  //     
+  //     const deltaY = currentY.current - startY.current;
+  //     
+  //     if (deltaY > SWIPE_THRESHOLD) {
+  //       onDismiss();
+  //     }
+  //     
+  //     setIsDragging(false);
+  //     setDragY(0);
+  //   }, [isDragging, onDismiss]);
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    handleMove(e.clientY);
-  }, [handleMove]);
+  //   const handleMouseMove = useCallback((e: MouseEvent) => {
+  //     handleMove(e.clientY);
+  //   }, [handleMove]);
 
-  const handleMouseUp = useCallback(() => {
-    handleEnd();
-  }, [handleEnd]);
+  //   const handleMouseUp = useCallback(() => {
+  //     handleEnd();
+  //   }, [handleEnd]);
 
-  // Mouse event listeners
-  useEffect(() => {
-    if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-      return () => {
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
-      };
-    }
-  }, [isDragging, handleMouseMove, handleMouseUp]);
+  //   // Mouse event listeners
+  //   useEffect(() => {
+  //     if (isDragging) {
+  //       document.addEventListener('mousemove', handleMouseMove);
+  //       document.addEventListener('mouseup', handleMouseUp);
+  //       return () => {
+  //         document.removeEventListener('mousemove', handleMouseMove);
+  //         document.removeEventListener('mouseup', handleMouseUp);
+  //       };
+  //     }
+  //   }, [isDragging, handleMouseMove, handleMouseUp]);
 
-  const swipeHandlers: SwipeHandlers = useMemo(() => ({
-    onTouchStart: (e: React.TouchEvent) => handleStart(e.touches[0].clientY),
-    onTouchMove: (e: React.TouchEvent) => handleMove(e.touches[0].clientY),
-    onTouchEnd: handleEnd,
-    onMouseDown: (e: React.MouseEvent) => handleStart(e.clientY)
-  }), [handleStart, handleMove, handleEnd]);
+  //   const swipeHandlers: SwipeHandlers = useMemo(() => ({
+  //     onTouchStart: (e: React.TouchEvent) => handleStart(e.touches[0].clientY),
+  //     onTouchMove: (e: React.TouchEvent) => handleMove(e.touches[0].clientY),
+  //     onTouchEnd: handleEnd,
+  //     onMouseDown: (e: React.MouseEvent) => handleStart(e.clientY)
+  //   }), [handleStart, handleMove, handleEnd]);
 
-  return [dragY, swipeHandlers];
-};
+  //   return [dragY, swipeHandlers];
+  // };
 
 const InquirySection: React.FC<InquirySectionProps> = ({ className }) => {
-  const { theme } = useTheme();
   const [inquiryCode, setInquiryCode] = useState('');
   const [result, setResult] = useState<TransactionResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [hasSearched, setHasSearched] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   // Optimized API call with useCallback
@@ -111,7 +99,6 @@ const InquirySection: React.FC<InquirySectionProps> = ({ className }) => {
     if (!inquiryCode.trim()) return;
     
     setIsLoading(true);
-    setHasSearched(true);
     
     // Simulate API call with Promise
     try {
@@ -146,7 +133,6 @@ const InquirySection: React.FC<InquirySectionProps> = ({ className }) => {
   const handleReset = useCallback(() => {
     setInquiryCode('');
     setResult(null);
-    setHasSearched(false);
     setShowModal(false);
   }, []);
 
@@ -166,6 +152,7 @@ const InquirySection: React.FC<InquirySectionProps> = ({ className }) => {
       </div>
     </div>
   ));
+  SuccessIcon.displayName = 'SuccessIcon';
 
   // Error Icon Component
   const ErrorIcon = React.memo(() => (
@@ -177,6 +164,7 @@ const InquirySection: React.FC<InquirySectionProps> = ({ className }) => {
       </div>
     </div>
   ));
+  ErrorIcon.displayName = 'ErrorIcon';
 
   // Transaction Details Component
   const TransactionDetails = React.memo(({ result }: { result: TransactionResult }) => (
@@ -210,6 +198,7 @@ const InquirySection: React.FC<InquirySectionProps> = ({ className }) => {
       </div>
     </div>
   ));
+  TransactionDetails.displayName = 'TransactionDetails';
 
   // Result Modal/Bottom Sheet Content Component
   const ResultContent = React.memo(() => {
@@ -267,6 +256,7 @@ const InquirySection: React.FC<InquirySectionProps> = ({ className }) => {
       </div>
     );
   });
+  ResultContent.displayName = 'ResultContent';
 
   // Memoized form input handler
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
