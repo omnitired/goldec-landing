@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 const partnersFilePath = path.join(process.cwd(), 'src/data/partners.json');
 
 export async function GET() {

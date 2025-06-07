@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 const colors = [
   '#F59E0B', '#EF4444', '#10B981', '#3B82F6', '#8B5CF6',
   '#F97316', '#06B6D4', '#84CC16', '#EC4899', '#6366F1'
