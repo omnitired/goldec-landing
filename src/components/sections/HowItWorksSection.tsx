@@ -24,7 +24,7 @@ const StepCard: React.FC<{
       )}>
         {icon}
       </div>
-      <div className="absolute -top-2 -right-2 w-10 h-10 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full flex items-center justify-center text-white font-black text-lg shadow-xl">
+      <div className="absolute -top-2 -right-2 w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-500 rounded-full flex items-center justify-center text-white font-black text-lg shadow-xl">
         {stepNumber}
       </div>
     </div>

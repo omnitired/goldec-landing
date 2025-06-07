@@ -37,16 +37,16 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
   return (
     <nav className={cn(
-      "sticky top-0 z-50 bg-gradient-to-r from-slate-900/95 via-gray-900/95 to-slate-900/95 dark:from-slate-950/95 dark:via-gray-950/95 dark:to-slate-950/95 backdrop-blur-xl border-b border-yellow-500/20 dark:border-yellow-400/30 text-white py-4 px-6 shadow-2xl shadow-black/20 dark:shadow-black/40",
+      "sticky top-0 z-50 bg-gradient-to-r from-slate-900/95 via-gray-900/95 to-slate-900/95 dark:from-slate-950/95 dark:via-gray-950/95 dark:to-slate-950/95 backdrop-blur-xl border-b border-blue-500/20 dark:border-blue-400/30 text-white py-4 px-6 shadow-2xl shadow-black/20 dark:shadow-black/40",
       className
     )}>
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center space-x-3 space-x-reverse group">
-          <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 via-yellow-500 to-amber-600 rounded-xl flex items-center justify-center shadow-xl shadow-yellow-500/25 group-hover:shadow-yellow-500/40 transition-all duration-300 group-hover:scale-105">
+          <div className="w-12 h-12 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-xl shadow-blue-500/25 group-hover:shadow-blue-500/40 transition-all duration-300 group-hover:scale-105">
             <ShieldIcon className="w-7 h-7 text-white drop-shadow-lg" />
           </div>
-          <div className="text-2xl font-black bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-500 bg-clip-text text-transparent drop-shadow-lg">
+          <div className="text-2xl font-black bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent drop-shadow-lg">
             {content.brand}
           </div>
         </div>
@@ -58,11 +58,11 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
             <button
               key={item.href}
               onClick={() => handleNavigation(item)}
-              className="relative px-3 py-2 text-white/90 hover:text-yellow-400 transition-all duration-300 font-semibold hover:scale-105 cursor-pointer group"
+              className="relative px-3 py-2 text-white/90 hover:text-blue-400 transition-all duration-300 font-semibold hover:scale-105 cursor-pointer group"
             >
               <span className="relative z-10">{item.label}</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/0 via-yellow-500/10 to-yellow-500/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-yellow-400 to-amber-500 group-hover:w-full transition-all duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-blue-500 group-hover:w-full transition-all duration-300" />
             </button>
           ))}
         </div>
@@ -71,7 +71,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         <div className="md:hidden flex items-center space-x-4 space-x-reverse">
           <ThemeToggle />
           <button
-            className="p-3 hover:bg-white/10 dark:hover:bg-white/10 rounded-xl transition-all duration-300 hover:scale-105 border border-white/20 dark:border-white/20 hover:border-yellow-400/50"
+            className="p-3 hover:bg-white/10 dark:hover:bg-white/10 rounded-xl transition-all duration-300 hover:scale-105 border border-white/20 dark:border-white/20 hover:border-blue-400/50"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -82,13 +82,13 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden mt-4 pb-4 border-t border-yellow-500/20">
+        <div className="md:hidden mt-4 pb-4 border-t border-blue-500/20">
           <div className="flex flex-col space-y-3 pt-4 px-2">
             {navItems.map((item) => (
               <button
                 key={item.href}
                 onClick={() => handleNavigation(item)}
-                className="text-right py-3 px-4 text-white/90 dark:text-white/90 hover:text-yellow-400 hover:bg-white/10 dark:hover:bg-white/10 rounded-lg transition-all duration-300 font-semibold border border-transparent hover:border-yellow-400/30"
+                className="text-right py-3 px-4 text-white/90 dark:text-white/90 hover:text-blue-400 hover:bg-white/10 dark:hover:bg-white/10 rounded-lg transition-all duration-300 font-semibold border border-transparent hover:border-blue-400/30"
               >
                 {item.label}
               </button>

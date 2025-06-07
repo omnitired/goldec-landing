@@ -211,7 +211,7 @@ export default function InquiryPage() {
   if (!mounted) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-500"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
       </div>
     );
   }
@@ -231,7 +231,7 @@ export default function InquiryPage() {
       )}>
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12 animate-in fade-in-0 slide-in-from-top-4 duration-700">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-yellow-500 rounded-full mb-6 shadow-2xl shadow-yellow-500/30">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-500 rounded-full mb-6 shadow-2xl shadow-blue-500/30">
               <ShieldIcon className="w-10 h-10 text-white" />
             </div>
             <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-50 mb-4">
@@ -261,9 +261,9 @@ export default function InquiryPage() {
                     }
                   }}
                   className={cn(
-                    "w-full px-6 py-4 text-lg font-mono tracking-wider border-2 rounded-2xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent",
+                    "w-full px-6 py-4 text-lg font-mono tracking-wider border-2 rounded-2xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
                     theme === 'dark'
-                      ? "bg-gray-700 border-gray-500 text-gray-50 placeholder-gray-300 focus:bg-gray-600 focus:border-yellow-400"
+                      ? "bg-gray-700 border-gray-500 text-gray-50 placeholder-gray-300 focus:bg-gray-600 focus:border-blue-400"
                       : "bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500 focus:bg-white"
                   )}
                   placeholder="مثال: ABC123456789"
@@ -278,8 +278,8 @@ export default function InquiryPage() {
                 className={cn(
                   "w-full py-4 text-lg font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none",
                   theme === 'dark'
-                    ? "bg-yellow-500 hover:bg-yellow-400 active:bg-yellow-600 text-gray-900"
-                    : "bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700 text-white"
+                    ? "bg-blue-500 hover:bg-blue-400 active:bg-blue-600 text-white"
+                    : "bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white"
                 )}
               >
                 {isLoading ? (

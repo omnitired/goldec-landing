@@ -19,7 +19,7 @@ const FooterLink: React.FC<{
     <a
       href={href}
       onClick={onClick}
-      className="hover:text-yellow-400 transition-colors text-white/70 flex items-center group cursor-pointer"
+      className="hover:text-blue-400 transition-colors text-white/70 flex items-center group cursor-pointer"
     >
       <span className="ml-3 group-hover:translate-x-1 transition-transform">
         {icon}
@@ -100,7 +100,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
 
         {/* About Section */}
         <div>
-          <h3 className="text-xl font-bold mb-8 text-yellow-400">
+          <h3 className="text-xl font-bold mb-8 text-blue-400">
             {content.footer.aboutTitle}
           </h3>
           <p className="text-white/70 leading-relaxed">
@@ -110,16 +110,16 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
 
         {/* Contact Section */}
         <div>
-          <h3 className="text-xl font-bold mb-8 text-yellow-400">
+          <h3 className="text-xl font-bold mb-8 text-blue-400">
             {content.footer.contactTitle}
           </h3>
           <div className="space-y-4">
-            <p className="text-white/70 flex items-center group">
-              <EmailIcon className="w-5 h-5 ml-3 group-hover:text-yellow-400 transition-colors" />
+            {/* <p className="text-white/70 flex items-center group">
+              <EmailIcon className="w-5 h-5 ml-3 group-hover:text-blue-400 transition-colors" />
               {content.footer.email}
-            </p>
+            </p> */}
             <p className="text-white/70 flex items-center group">
-              <PhoneIcon className="w-5 h-5 ml-3 group-hover:text-yellow-400 transition-colors" />
+              <PhoneIcon className="w-5 h-5 ml-3 group-hover:text-blue-400 transition-colors" />
               {content.footer.phone}
             </p>
           </div>
@@ -127,7 +127,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
 
         {/* Social Section */}
         <div>
-          <h3 className="text-xl font-bold mb-8 text-yellow-400">
+          <h3 className="text-xl font-bold mb-8 text-blue-400">
             {content.footer.socialTitle}
           </h3>
           <div className="flex gap-4">

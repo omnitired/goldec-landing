@@ -23,7 +23,7 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ partner }) => {
   const [imageError, setImageError] = useState(false);
   
   return (
-    <div className="group relative bg-card dark:bg-card rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-border dark:border-border hover:border-yellow-300 dark:hover:border-yellow-400 hover:-translate-y-1">
+    <div className="group relative bg-card dark:bg-card rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-border dark:border-border hover:border-blue-300 dark:hover:border-blue-400 hover:-translate-y-1">
       <div className="flex flex-col h-full">
         <div className="flex items-center justify-center mb-4 h-16">
           {!imageError ? (
@@ -36,8 +36,8 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ partner }) => {
               onError={() => setImageError(true)}
             />
           ) : (
-            <div className="w-12 h-12 bg-gradient-to-br from-yellow-100 to-amber-100 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-xl flex items-center justify-center">
-              <div className="text-yellow-600 dark:text-yellow-400 font-bold text-xs text-center leading-tight">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/20 dark:to-blue-800/20 rounded-xl flex items-center justify-center">
+              <div className="text-blue-600 dark:text-blue-400 font-bold text-xs text-center leading-tight">
                 {partner.name.split(' ').map(word => word[0]).join('').substring(0, 3)}
               </div>
             </div>
@@ -45,7 +45,7 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ partner }) => {
         </div>
         
         <div className="flex-1 text-center">
-          <h3 className="font-bold text-card-foreground dark:text-card-foreground mb-2 group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors">
+          <h3 className="font-bold text-card-foreground dark:text-card-foreground mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
             {partner.name}
           </h3>
           <p className="text-sm text-muted-foreground dark:text-muted-foreground mb-2 break-all">
@@ -72,7 +72,7 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ partner }) => {
           href={partner.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-500 to-amber-500 text-white rounded-lg text-sm font-medium hover:from-yellow-600 hover:to-amber-600 transition-all duration-200 opacity-0 group-hover:opacity-100"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg text-sm font-medium hover:from-blue-600 hover:to-blue-700 transition-all duration-200 opacity-0 group-hover:opacity-100"
         >
           مشاهده سایت
           <ExternalLink className="w-3 h-3" />
@@ -160,7 +160,7 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black text-foreground dark:text-foreground mb-6">
-            <span className="bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
               {content.partners.title1}
             </span>{' '}
             {content.partners.title2}
@@ -172,12 +172,12 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
           {/* Stats */}
           <div className="flex items-center justify-center gap-8 mb-8">
             <div className="text-center">
-              <div className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">{totalPartners}</div>
+              <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">{totalPartners}</div>
               <div className="text-sm text-muted-foreground dark:text-muted-foreground">پلتفرم فعال</div>
             </div>
             <div className="w-px h-12 bg-border dark:bg-border"></div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-amber-600 dark:text-amber-400">{displayedPartners.length}</div>
+              <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">{displayedPartners.length}</div>
               <div className="text-sm text-muted-foreground dark:text-muted-foreground">در حال نمایش</div>
             </div>
           </div>
@@ -195,7 +195,7 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
                 placeholder="جستجو در پلتفرم‌ها..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pr-12 pl-4 py-3 bg-input dark:bg-input border border-border dark:border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent text-right transition-all duration-200 text-foreground dark:text-foreground placeholder:text-muted-foreground dark:placeholder:text-muted-foreground"
+                className="w-full pr-12 pl-4 py-3 bg-input dark:bg-input border border-border dark:border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right transition-all duration-200 text-foreground dark:text-foreground placeholder:text-muted-foreground dark:placeholder:text-muted-foreground"
               />
               </div>
 
@@ -204,7 +204,7 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
                 <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortOption)}
-                className="appearance-none bg-input dark:bg-input border border-border dark:border-border rounded-2xl px-4 py-3 pr-10 pl-4 text-foreground dark:text-foreground focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 cursor-pointer"
+                className="appearance-none bg-input dark:bg-input border border-border dark:border-border rounded-2xl px-4 py-3 pr-10 pl-4 text-foreground dark:text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 cursor-pointer"
               >
                 <option value="date-newest">جدیدترین</option>
                 <option value="date-oldest">قدیمی‌ترین</option>
@@ -260,7 +260,7 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
             {hasMore ? (
               <button
                 onClick={handleLoadMore}
-                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-yellow-500 to-amber-500 text-white rounded-2xl font-semibold hover:from-yellow-600 hover:to-amber-600 transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-2xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 نمایش بیشتر
                 <span className="bg-white/20 dark:bg-white/10 px-2 py-1 rounded-lg text-sm">
@@ -297,7 +297,7 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
               مجوز فعالیت معتبر
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
               نظارت مستمر
             </div>
           </div>

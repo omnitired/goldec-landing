@@ -291,7 +291,7 @@ const InquirySection: React.FC<InquirySectionProps> = ({ className }) => {
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-12 animate-in fade-in-0 slide-in-from-top-4 duration-700">
           <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 via-yellow-500 to-amber-600 rounded-2xl flex items-center justify-center shadow-xl animate-in zoom-in-50 duration-500 delay-200">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl animate-in zoom-in-50 duration-500 delay-200">
               <ShieldIcon className="w-8 h-8 text-white drop-shadow-lg" />
             </div>
           </div>
@@ -314,7 +314,7 @@ const InquirySection: React.FC<InquirySectionProps> = ({ className }) => {
                 value={inquiryCode}
                 onChange={handleInputChange}
                 placeholder="مثال: ABCD-1234"
-                className="w-full px-4 py-4 text-center text-lg font-mono bg-gray-50/80 dark:bg-slate-700/80 backdrop-blur-sm border border-gray-300/50 dark:border-slate-600/50 rounded-2xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500/50 transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 hover:border-yellow-400/30 dark:hover:border-yellow-500/30"
+                className="w-full px-4 py-4 text-center text-lg font-mono bg-gray-50/80 dark:bg-slate-700/80 backdrop-blur-sm border border-gray-300/50 dark:border-slate-600/50 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 hover:border-blue-400/30 dark:hover:border-blue-500/30"
                 dir="ltr"
               />
               <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 text-center">
