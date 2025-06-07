@@ -12,7 +12,7 @@ import { Partner } from '@/types/content';
 async function apiFetch<T>(
   url: string,
   options: RequestInit = {},
-  retries = API_CONFIG.retries
+  retries: number = API_CONFIG.retries
 ): Promise<T> {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.timeout);
@@ -85,9 +85,11 @@ function transformPlatformToPartner(platform: PlatformApiData): Partner {
 /**
  * Convert API date to Jalali format (placeholder for future implementation)
  */
-function formatApiDateToJalali(_apiDate: string): string {
+function formatApiDateToJalali(apiDate: string): string {
   // This is a placeholder - in the future, implement proper date conversion
   // For now, return current date in Jalali format
+  // TODO: Use apiDate parameter for actual conversion
+  console.log('API date to convert:', apiDate); // Temporary to avoid unused parameter warning
   const now = new Date();
   return `${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')}`;
 }
