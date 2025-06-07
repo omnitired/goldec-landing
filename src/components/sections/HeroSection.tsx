@@ -64,6 +64,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className }) => {
             size="lg"
             className="group shadow-2xl hover:shadow-yellow-500/25 transition-all duration-300"
             leftIcon={<StarIcon className="w-6 h-6 group-hover:rotate-12 transition-transform" />}
+            onClick={() => window.location.href = '/inquiry'}
           >
             {content.hero.cta1}
           </Button>

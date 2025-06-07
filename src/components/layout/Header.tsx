@@ -15,6 +15,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
+    { href: '/inquiry', label: 'استعلام', isRoute: true },
     { href: '#features', label: content.nav.features },
     { href: '#how-it-works', label: content.nav.howItWorks },
     { href: '#stats', label: content.nav.stats },
@@ -22,10 +23,14 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
     { href: '#contact', label: content.nav.contact },
   ];
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const handleNavigation = (item: { href: string; label: string; isRoute?: boolean }) => {
+    if (item.isRoute) {
+      window.location.href = item.href;
+    } else {
+      const element = document.querySelector(item.href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
     setIsMobileMenuOpen(false);
   };
@@ -52,7 +57,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           {navItems.map((item) => (
             <button
               key={item.href}
-              onClick={() => scrollToSection(item.href)}
+              onClick={() => handleNavigation(item)}
               className="relative px-3 py-2 text-white/90 hover:text-yellow-400 transition-all duration-300 font-semibold hover:scale-105 cursor-pointer group"
             >
               <span className="relative z-10">{item.label}</span>
@@ -82,7 +87,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
             {navItems.map((item) => (
               <button
                 key={item.href}
-                onClick={() => scrollToSection(item.href)}
+                onClick={() => handleNavigation(item)}
                 className="text-right py-3 px-4 text-white/90 dark:text-white/90 hover:text-yellow-400 hover:bg-white/10 dark:hover:bg-white/10 rounded-lg transition-all duration-300 font-semibold border border-transparent hover:border-yellow-400/30"
               >
                 {item.label}
