@@ -85,7 +85,7 @@ function transformPlatformToPartner(platform: PlatformApiData): Partner {
 /**
  * Convert API date to Jalali format (placeholder for future implementation)
  */
-function formatApiDateToJalali(apiDate: string): string {
+function formatApiDateToJalali(_apiDate: string): string {
   // This is a placeholder - in the future, implement proper date conversion
   // For now, return current date in Jalali format
   const now = new Date();
