@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
     { href: '/inquiry', label: 'استعلام', isRoute: true },
     { href: '#features', label: content.nav.features },
     { href: '#how-it-works', label: content.nav.howItWorks },
-    { href: '#stats', label: content.nav.stats },
+    // { href: '#stats', label: content.nav.stats },
     { href: '#partners', label: 'پلتفرم‌ها' },
     { href: '#contact', label: content.nav.contact },
   ];
