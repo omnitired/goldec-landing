@@ -7,15 +7,16 @@ interface ParticleBackgroundProps {
 }
 
 const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ className }) => {
-  const particlesRef = React.useRef<NodeListOf<HTMLElement>>();
+  const particlesRef = React.useRef<NodeListOf<Element> | null>(null);
 
   React.useEffect(() => {
     const particles = document.querySelectorAll('.particle');
     particlesRef.current = particles;
 
-    const handleCollision = (particle: HTMLElement) => {
-      const currentX = parseFloat(particle.style.getPropertyValue('--collision-offset-x') || '0');
-      const currentY = parseFloat(particle.style.getPropertyValue('--collision-offset-y') || '0');
+    const handleCollision = (particle: Element) => {
+      const htmlParticle = particle as HTMLElement;
+      const currentX = parseFloat(htmlParticle.style.getPropertyValue('--collision-offset-x') || '0');
+      const currentY = parseFloat(htmlParticle.style.getPropertyValue('--collision-offset-y') || '0');
       
       particles.forEach(other => {
         if (particle !== other) {
@@ -26,27 +27,30 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ className }) =>
             const angle = Math.atan2(rect2.top - rect1.top, rect2.left - rect1.left);
             const force = 30;
             
-            particle.style.setProperty('--collision-offset-x', `${currentX + Math.cos(angle) * force}px`);
-            particle.style.setProperty('--collision-offset-y', `${currentY + Math.sin(angle) * force}px`);
+            htmlParticle.style.setProperty('--collision-offset-x', `${currentX + Math.cos(angle) * force}px`);
+            htmlParticle.style.setProperty('--collision-offset-y', `${currentY + Math.sin(angle) * force}px`);
           }
         }
       });
     };
 
+    let animationId: number;
+    
     const animationFrame = () => {
       particles.forEach(particle => {
         handleCollision(particle);
-        particle.style.transform = `translate3d(
-          ${parseFloat(particle.style.getPropertyValue('--collision-offset-x') || '0')}px,
-          ${parseFloat(particle.style.getPropertyValue('--collision-offset-y') || '0')}px,
+        const htmlParticle = particle as HTMLElement;
+        htmlParticle.style.transform = `translate3d(
+          ${parseFloat(htmlParticle.style.getPropertyValue('--collision-offset-x') || '0')}px,
+          ${parseFloat(htmlParticle.style.getPropertyValue('--collision-offset-y') || '0')}px,
           0
         )`;
       });
-      requestAnimationFrame(animationFrame);
+      animationId = requestAnimationFrame(animationFrame);
     };
     
-    animationFrame();
-    return () => cancelAnimationFrame(animationFrame);
+    animationId = requestAnimationFrame(animationFrame);
+    return () => cancelAnimationFrame(animationId);
   }, []);
   const { theme } = useTheme();
 
