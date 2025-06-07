@@ -69,14 +69,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className }) => {
             {content.hero.cta1}
           </Button>
           
-          <Button
+          {/* <Button
             variant="secondary"
             size="lg"
             className="group shadow-xl hover:shadow-white/20 transition-all duration-300"
             leftIcon={<ArrowRightIcon className="w-6 h-6 group-hover:translate-x-1 transition-transform" />}
           >
             {content.hero.cta2}
-          </Button>
+          </Button> */}
         </div>
       </div>
     </section>

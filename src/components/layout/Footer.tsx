@@ -62,7 +62,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
     )}>
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
         {/* Links Section */}
-        <div>
+        {/* <div>
           <h3 className="text-xl font-bold mb-8 text-yellow-400">
             {content.footer.title}
           </h3>
@@ -96,7 +96,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
               {content.footer.contact}
             </FooterLink>
           </ul>
-        </div>
+        </div> */}
 
         {/* About Section */}
         <div>

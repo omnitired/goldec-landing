@@ -22,7 +22,7 @@ export default function Home() {
         <HowItWorksSection />
         {/* <StatsSection /> */}
         <PartnersSection />
-        <CTASection />
+        {/* <CTASection /> */}
         <AdminNavLink />
       </main>
       <Footer />
