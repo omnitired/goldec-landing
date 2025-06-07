@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useContent } from '@/hooks/useContent';
 import { Partner } from '@/types/content';
-import partnersData from '@/data/partners.json';
-import { ExternalLink, ChevronDown, ChevronUp, Search, ArrowUpDown, Calendar } from 'lucide-react';
+import { getPartnersData } from '@/lib/api-service';
+import { ExternalLink, ChevronDown, ChevronUp, Search, ArrowUpDown, Calendar, Loader2 } from 'lucide-react';
 import { getRelativeJalaliDate, formatJalaliDate, sortByJalaliDate } from '@/lib/jalali-utils';
 
 interface PartnersSectionProps {
@@ -84,10 +84,33 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ partner }) => {
 
 const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
   const content = useContent();
-  const [displayCount, setDisplayCount] = useState(partnersData.settings.initialDisplayCount);
+  const [partnersData, setPartnersData] = useState<{ partners: Partner[]; settings: { initialDisplayCount: number; expandStep: number } }>({ partners: [], settings: { initialDisplayCount: 12, expandStep: 12 } });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [displayCount, setDisplayCount] = useState(12);
   const [searchTerm, setSearchTerm] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
   const [sortBy, setSortBy] = useState<SortOption>('date-newest');
+
+  // Load partners data from API
+  useEffect(() => {
+    const loadPartnersData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const data = await getPartnersData();
+        setPartnersData(data);
+        setDisplayCount(data.settings.initialDisplayCount);
+      } catch (err) {
+        console.error('Failed to load partners data:', err);
+        setError('خطا در بارگذاری اطلاعات پلتفرم‌ها');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPartnersData();
+  }, []);
 
   const filteredAndSortedPartners = useMemo(() => {
     const filtered = partnersData.partners.filter((partner: Partner) =>
@@ -116,7 +139,7 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
     });
 
     return sorted;
-  }, [searchTerm, sortBy]);
+  }, [partnersData.partners, searchTerm, sortBy]);
 
   const displayedPartners = useMemo((): Partner[] => {
     return isExpanded ? filteredAndSortedPartners : filteredAndSortedPartners.slice(0, displayCount);
@@ -150,6 +173,77 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
       default: return 'مرتب‌سازی';
     }
   };
+
+  // Loading state
+  if (loading) {
+    return (
+      <section id="partners" className={cn(
+        "py-24 px-6 bg-background",
+        className
+      )}>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black text-foreground dark:text-foreground mb-6">
+              <span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+                {content.partners.title1}
+              </span>{' '}
+              {content.partners.title2}
+            </h2>
+            <p className="text-xl text-muted-foreground dark:text-muted-foreground max-w-2xl mx-auto mb-8">
+              {content.partners.subtitle}
+            </p>
+          </div>
+          
+          <div className="flex items-center justify-center py-20">
+            <div className="text-center">
+              <Loader2 className="w-12 h-12 animate-spin text-blue-600 dark:text-blue-400 mx-auto mb-4" />
+              <p className="text-muted-foreground dark:text-muted-foreground">در حال بارگذاری پلتفرم‌ها...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <section id="partners" className={cn(
+        "py-24 px-6 bg-background",
+        className
+      )}>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black text-foreground dark:text-foreground mb-6">
+              <span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+                {content.partners.title1}
+              </span>{' '}
+              {content.partners.title2}
+            </h2>
+            <p className="text-xl text-muted-foreground dark:text-muted-foreground max-w-2xl mx-auto mb-8">
+              {content.partners.subtitle}
+            </p>
+          </div>
+          
+          <div className="flex items-center justify-center py-20">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <ExternalLink className="w-8 h-8 text-red-600 dark:text-red-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground dark:text-foreground mb-2">خطا در بارگذاری</h3>
+              <p className="text-muted-foreground dark:text-muted-foreground mb-4">{error}</p>
+              <button
+                onClick={() => window.location.reload()}
+                className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+              >
+                تلاش مجدد
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="partners" className={cn(

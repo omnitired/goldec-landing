@@ -5,7 +5,6 @@ import {
   HowItWorksSection,
   PartnersSection,
 } from '@/components';
-import AdminNavLink from '@/components/ui/AdminNavLink';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { cn } from '@/lib/utils';
@@ -21,7 +20,6 @@ export default function Home() {
         {/* <StatsSection /> */}
         <PartnersSection />
         {/* <CTASection /> */}
-        <AdminNavLink />
       </main>
       <Footer />
     </div>
