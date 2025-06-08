@@ -1,28 +1,17 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // SSR enabled - removed 'output: export' for server-side rendering
+  // SSR disabled - static export mode
+  output: 'export',
   trailingSlash: true,
   // Configure output directory for deployment platform
   distDir: 'build',
   images: {
-    // Re-enable image optimization for SSR
-    domains: ['panel.zarnext.com'], // Add your API domain for image optimization
-    formats: ['image/webp', 'image/avif'],
+    // Disable image optimization for static export
+    unoptimized: true,
   },
-  // Enable experimental features for better SSR performance
-  experimental: {
-    optimizeCss: true,
-  },
-  // API routes configuration
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: '/api/:path*',
-      },
-    ];
-  },
+  // Remove experimental features as they're not needed for static export
+  // Remove API routes configuration as they're not supported in static export
 };
 
 export default nextConfig;

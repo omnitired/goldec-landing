@@ -136,10 +136,8 @@ export async function fetchPlatforms(): Promise<Partner[]> {
  */
 export async function getPartnersData(): Promise<{ partners: Partner[]; settings: { initialDisplayCount: number; expandStep: number } }> {
   try {
-    // Use internal API route for SSR compatibility
-    const apiUrl = typeof window === 'undefined' 
-      ? `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/partners`
-      : '/api/partners';
+    // Use external API directly for static export compatibility
+    const apiUrl = API_ENDPOINTS.PLATFORMS;
     
     const response = await apiFetch<PlatformsApiResponse>(apiUrl);
     
