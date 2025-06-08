@@ -53,7 +53,7 @@ export default function TrackPage() {
 
   const handleTrack = async () => {
     if (!trackingCode.trim()) {
-      setToast({message: 'لطفاً کد پیگیری را وارد کنید', type: 'error'});
+      setToast({message: 'لطفاً کد رهگیری را وارد کنید', type: 'error'});
       setTimeout(() => setToast(null), 3000);
       return;
     }
@@ -148,7 +148,7 @@ export default function TrackPage() {
               onClick={handleReset}
               className="w-full py-4 text-lg font-bold bg-blue-600 hover:bg-blue-700 active:bg-blue-800 dark:bg-blue-500 dark:hover:bg-blue-600 dark:active:bg-blue-700 text-white transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
             >
-              بازگشت و پیگیری مجدد
+              بازگشت و رهگیری مجدد
             </button>
           </div>
         </div>
@@ -244,7 +244,7 @@ export default function TrackPage() {
             onClick={handleReset}
             className="w-full py-4 text-lg font-bold bg-blue-600 hover:bg-blue-700 active:bg-blue-800 dark:bg-blue-500 dark:hover:bg-blue-600 dark:active:bg-blue-700 text-white transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
           >
-            بازگشت و پیگیری مجدد
+            بازگشت و رهگیری مجدد
           </button>
         </div>
       </div>
@@ -278,10 +278,10 @@ export default function TrackPage() {
               <ShieldIcon className="w-10 h-10 text-white" />
             </div>
             <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-50 mb-4">
-              پیگیری طلا
+رهگیری تراکنش
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-200 leading-relaxed">
-              کد پیگیری خود را وارد کنید تا وضعیت آن را بررسی کنیم
+              کد رهگیری دریافت شده از سکو  را وارد کنید تا وضعیت آن را بررسی کنیم
             </p>
           </div>
           
@@ -297,7 +297,7 @@ export default function TrackPage() {
                     : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
                 )}
               >
-                پیگیری تراکنش
+                رهگیری تراکنش
               </button>
               <button
                 onClick={() => setActiveTab('delivery')}
@@ -308,7 +308,7 @@ export default function TrackPage() {
                     : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
                 )}
               >
-                پیگیری تحویل
+                رهگیری تحویل
               </button>
             </div>
           </div>
@@ -358,7 +358,7 @@ export default function TrackPage() {
                     <span>در حال بررسی...</span>
                   </span>
                 ) : (
-                  activeTab === 'transaction' ? 'پیگیری تراکنش' : 'پیگیری تحویل'
+                  activeTab === 'transaction' ? 'رهگیری تراکنش' : 'رهگیری تحویل'
                 )}
               </Button>
             </div>
@@ -369,7 +369,7 @@ export default function TrackPage() {
       <ModalBottomSheet
         open={showModal}
         onOpenChange={setShowModal}
-        title={error ? 'خطا در پیگیری' : 'نتیجه پیگیری'}
+        title={error ? 'خطا در رهگیری' : 'نتیجه رهگیری'}
       >
         <ResultContent />
       </ModalBottomSheet>

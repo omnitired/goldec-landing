@@ -3,8 +3,8 @@ import "./globals.css";
 import { ThemeProvider } from '@/contexts/ThemeContext';
 
 export const metadata: Metadata = {
-  title: "گلدک - سامانه نظارت بر معاملات طلای آب‌شده",
-  description: "سامانه نظارت بر معاملات طلای آب‌شده با شفافیت، امنیت و اعتماد",
+  title: "سامانه نظارت بر معاملات طلای آب‌شده ",
+  description: "سامانه نظارت بر سکو‌های معامله طلای آب‌شده؛ قدرت گرفته از اتحادیه کسب و کارهای مجازی",
 };
 
 export default function RootLayout({children}: Readonly<{children: React.ReactNode;}>) {
