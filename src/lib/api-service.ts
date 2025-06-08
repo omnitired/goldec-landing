@@ -145,18 +145,28 @@ export async function getPartnersData(): Promise<{ partners: Partner[]; settings
     // Use external API directly for static export compatibility
     const apiUrl = API_ENDPOINTS.PLATFORMS;
     
+    console.log('Fetching partners data from:', apiUrl);
     const response = await apiFetch<PlatformsApiResponse>(apiUrl);
     
+    console.log('API Response:', response);
+    
+    if (!response || typeof response !== 'object') {
+      throw new Error('Invalid API response structure');
+    }
+    
     if (response.status !== 200) {
-      throw new Error(`API returned status ${response.status}: ${response.message}`);
+      throw new Error(`API returned status ${response.status}: ${response.message || 'Unknown error'}`);
     }
 
     if (!response.data || !Array.isArray(response.data)) {
-      throw new Error('Invalid API response format');
+      console.warn('API response data is not an array:', response.data);
+      throw new Error('Invalid API response format - expected array of platforms');
     }
 
     // Transform API data to Partner format using the transform function
     const partners: Partner[] = response.data.map(transformPlatformToPartner);
+    
+    console.log(`Successfully loaded ${partners.length} partners`);
 
     return {
       partners,
@@ -167,6 +177,16 @@ export async function getPartnersData(): Promise<{ partners: Partner[]; settings
     };
   } catch (error) {
     console.error('Error fetching partners data:', error);
-    throw new Error('Failed to fetch partners data');
+    
+    // Provide more specific error messages
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      throw new Error('Network error - please check your internet connection');
+    }
+    
+    if (error instanceof Error && error.name === 'AbortError') {
+      throw new Error('Request timeout - please try again');
+    }
+    
+    throw new Error(error instanceof Error ? error.message : 'Failed to fetch partners data');
   }
 }

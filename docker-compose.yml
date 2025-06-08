@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  goldec-landing:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    container_name: goldec-landing
+    
+  # Development service (optional)
+  goldec-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped
+    container_name: goldec-landing-dev
+    profiles:
+      - dev

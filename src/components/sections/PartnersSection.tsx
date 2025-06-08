@@ -103,7 +103,12 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
         setDisplayCount(data.settings.initialDisplayCount);
       } catch (err) {
         console.error('Failed to load partners data:', err);
-        setError('خطا در بارگذاری اطلاعات سکو‌ها');
+        setError('خطا در بارگذاری اطلاعات سکو‌ها. لطفاً صفحه را مجدداً بارگذاری کنید.');
+        // Fallback to empty data to prevent infinite loading
+        setPartnersData({ 
+          partners: [], 
+          settings: { initialDisplayCount: 12, expandStep: 12 } 
+        });
       } finally {
         setLoading(false);
       }
@@ -111,6 +116,30 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
 
     loadPartnersData();
   }, []);
+
+  // Add retry function
+  const retryLoading = async () => {
+    const loadPartnersData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const data = await getPartnersData();
+        setPartnersData(data);
+        setDisplayCount(data.settings.initialDisplayCount);
+      } catch (err) {
+        console.error('Failed to load partners data:', err);
+        setError('خطا در بارگذاری اطلاعات سکو‌ها. لطفاً صفحه را مجدداً بارگذاری کنید.');
+        setPartnersData({ 
+          partners: [], 
+          settings: { initialDisplayCount: 12, expandStep: 12 } 
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    await loadPartnersData();
+  };
 
   const filteredAndSortedPartners = useMemo(() => {
     const filtered = partnersData.partners.filter((partner: Partner) =>
@@ -233,7 +262,7 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
               <h3 className="text-lg font-semibold text-foreground dark:text-foreground mb-2">خطا در بارگذاری</h3>
               <p className="text-muted-foreground dark:text-muted-foreground mb-4">{error}</p>
               <button
-                onClick={() => window.location.reload()}
+                onClick={retryLoading}
                 className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
               >
                 تلاش مجدد

@@ -9,7 +9,16 @@
     "lint": "next lint",
     "dev:ssr": "NEXT_PUBLIC_SITE_URL=http://localhost:3000 next dev --turbopack",
     "build:ssr": "next build",
-    "start:ssr": "next start"
+    "start:ssr": "next start",
+    "deploy:local": "./deploy.sh local",
+    "deploy:vercel": "./deploy.sh vercel",
+    "deploy:build": "./deploy.sh build",
+    "deploy:docker": "./deploy.sh docker",
+    "deploy:clean": "./deploy.sh clean",
+    "docker:build": "docker build -t goldec-landing:latest .",
+    "docker:run": "docker run -p 80:80 goldec-landing:latest",
+    "docker:compose": "docker-compose up --build -d",
+    "docker:dev": "docker-compose --profile dev up --build goldec-dev"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
