@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useContent } from '@/hooks/useContent';
 import { useTheme } from '@/contexts/ThemeContext';
@@ -121,9 +122,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className }) => {
             {content.hero.subtitle1}
           </p>
           <div className="flex flex-row-reverse items-center justify-center gap-4 mb-8 max-w-2xl mx-auto animate-fade-in-up animation-delay-400">
-            <img 
+            <Image 
               src="/union-logo.png" 
               alt="Union Logo" 
+              width={48}
+              height={48}
               className="w-8 h-8 md:w-12 md:h-12 object-contain"
             />
             <p className="hero-description text-lg md:text-xl">
