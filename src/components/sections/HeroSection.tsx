@@ -121,7 +121,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className }) => {
           <p className="hero-subtitle text-xl md:text-2xl mb-8 font-medium max-w-3xl mx-auto drop-shadow-md animate-fade-in-up animation-delay-200">
             {content.hero.subtitle1}
           </p>
-          <div className="flex flex-row-reverse items-center justify-center gap-4 mb-8 max-w-2xl mx-auto animate-fade-in-up animation-delay-400">
+          <div className="flex flex-row items-center justify-center gap-4 mb-8 max-w-2xl mx-auto animate-fade-in-up animation-delay-400">
             <Image 
               src="/union-logo.png" 
               alt="Union Logo" 

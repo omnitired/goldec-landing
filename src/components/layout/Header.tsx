@@ -20,8 +20,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   }, []);
 
   const navItems = [
-    { href: '/track', label: 'پیگیری', isRoute: true },
-    { href: '/track', label: 'استعلام', isRoute: true },
+    { href: '/track', label: 'رهگیری تراکنش', isRoute: true },
     { href: '#features', label: content.nav.features },
     { href: '#how-it-works', label: content.nav.howItWorks },
     // { href: '#stats', label: content.nav.stats },
@@ -50,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         {/* Logo */}
         <div 
           onClick={() => isClient && (window.location.href = '/')}
-          className="flex items-center space-x-3 space-x-reverse group cursor-pointer"
+          className="flex items-center space-x-6 space-x-reverse group cursor-pointer"
         >
           <div className="w-12 h-12 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-xl shadow-blue-500/25 group-hover:shadow-blue-500/40 transition-all duration-300 group-hover:scale-105">
             <ShieldIcon className="w-7 h-7 text-white drop-shadow-lg" />
@@ -62,10 +61,9 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6 space-x-reverse">
-          <ThemeToggle />
-          {navItems.map((item) => (
+          {navItems.map((item, index) => (
             <button
-              key={item.href}
+              key={`${item.href}-${item.label}-${index}`}
               onClick={() => handleNavigation(item)}
               className="relative px-3 py-2 text-white/90 hover:text-blue-400 transition-all duration-300 font-semibold hover:scale-105 cursor-pointer group"
             >
@@ -73,11 +71,11 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-blue-600 group-hover:w-full transition-all duration-300"></span>
             </button>
           ))}
+          <ThemeToggle />
         </div>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center space-x-4 space-x-reverse">
-          <ThemeToggle />
           <button
             className="p-3 hover:bg-white/10 dark:hover:bg-white/10 rounded-xl transition-all duration-300 hover:scale-105 border border-white/20 dark:border-white/20 hover:border-blue-400/50"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -85,6 +83,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           >
             <MenuIcon className="w-6 h-6 text-white" />
           </button>
+          <ThemeToggle />
         </div>
       </div>
 
@@ -92,9 +91,9 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
       {isMobileMenuOpen && (
         <div className="md:hidden mt-4 pb-4 border-t border-blue-500/20">
           <div className="flex flex-col space-y-3 pt-4 px-2">
-            {navItems.map((item) => (
+            {navItems.map((item, index) => (
               <button
-                key={item.href}
+                key={`mobile-${item.href}-${item.label}-${index}`}
                 onClick={() => handleNavigation(item)}
                 className="text-right py-3 px-4 text-white/90 dark:text-white/90 hover:text-blue-400 hover:bg-white/10 dark:hover:bg-white/10 rounded-lg transition-all duration-300 font-semibold border border-transparent hover:border-blue-400/30"
               >
