@@ -50,7 +50,7 @@ export default function NotFound() {
                 </Button>
               </Link>
               
-              <Link href="/inquiry">
+              <Link href="/track">
                 <Button 
                   variant="outline" 
                   size="lg"

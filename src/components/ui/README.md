@@ -161,8 +161,8 @@ npm install @radix-ui/react-dialog vaul framer-motion
 ## Examples in the Project
 
 See these files for real-world usage examples:
-- `/src/app/inquiry/page.tsx` - Inquiry result modal
-- `/src/components/sections/InquirySection.tsx` - Inquiry section modal
+- `/src/app/track/page.tsx` - Inquiry result modal
+- `/src/components/sections/trackSection.tsx` - Inquiry section modal
 
 ## Accessibility
 

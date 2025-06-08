@@ -141,7 +141,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className }) => {
               size="lg"
               className="group shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
               leftIcon={<MagnifyingGlassIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />}
-              onClick={() => window.location.href = '/inquiry'}
+              onClick={() => window.location.href = '/track'}
             >
               {content.hero.cta1}
             </Button>

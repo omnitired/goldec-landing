@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { useContent } from '@/hooks/useContent';
 import { ShieldIcon, MenuIcon } from '@/components/ui/Icons';
@@ -13,9 +13,15 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ className }) => {
   const content = useContent();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const navItems = [
-    { href: '/inquiry', label: 'استعلام', isRoute: true },
+    { href: '/track', label: 'پیگیری', isRoute: true },
+    { href: '/track', label: 'استعلام', isRoute: true },
     { href: '#features', label: content.nav.features },
     { href: '#how-it-works', label: content.nav.howItWorks },
     // { href: '#stats', label: content.nav.stats },
@@ -42,7 +48,10 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
     )}>
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
-        <div className="flex items-center space-x-3 space-x-reverse group">
+        <div 
+          onClick={() => isClient && (window.location.href = '/')}
+          className="flex items-center space-x-3 space-x-reverse group cursor-pointer"
+        >
           <div className="w-12 h-12 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-xl shadow-blue-500/25 group-hover:shadow-blue-500/40 transition-all duration-300 group-hover:scale-105">
             <ShieldIcon className="w-7 h-7 text-white drop-shadow-lg" />
           </div>
@@ -60,9 +69,8 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
               onClick={() => handleNavigation(item)}
               className="relative px-3 py-2 text-white/90 hover:text-blue-400 transition-all duration-300 font-semibold hover:scale-105 cursor-pointer group"
             >
-              <span className="relative z-10">{item.label}</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-blue-500 group-hover:w-full transition-all duration-300" />
+              {item.label}
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-blue-600 group-hover:w-full transition-all duration-300"></span>
             </button>
           ))}
         </div>
