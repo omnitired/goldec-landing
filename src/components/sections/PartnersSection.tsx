@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
-import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useContent } from '@/hooks/useContent';
 import { Partner } from '@/types/content';
@@ -27,7 +26,7 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ partner }) => {
       <div className="flex flex-col h-full">
         <div className="flex items-center justify-center mb-4 h-16">
           {!imageError ? (
-            <Image
+            <img
               src={partner.logo}
               alt={partner.name}
               width={48}
