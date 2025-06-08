@@ -3,7 +3,7 @@
  * Centralized configuration for all API endpoints
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://panel.zarnext.com/public/api/v1';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://staging.panel.zarnext.com/public/api/v1';
 
 /**
  * API endpoints configuration
@@ -46,9 +46,8 @@ export interface PlatformApiData {
   city: string;
   state: string;
   website_url: string;
-  // Future fields that will be added
-  image?: string;
-  created_at?: string;
+  logo: string;
+  created_at: string;
 }
 
 export interface PlatformsApiResponse {

@@ -103,7 +103,7 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
         setDisplayCount(data.settings.initialDisplayCount);
       } catch (err) {
         console.error('Failed to load partners data:', err);
-        setError('خطا در بارگذاری اطلاعات پلتفرم‌ها');
+        setError('خطا در بارگذاری اطلاعات سکو‌ها');
       } finally {
         setLoading(false);
       }
@@ -197,7 +197,7 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
           <div className="flex items-center justify-center py-20">
             <div className="text-center">
               <Loader2 className="w-12 h-12 animate-spin text-blue-600 dark:text-blue-400 mx-auto mb-4" />
-              <p className="text-muted-foreground dark:text-muted-foreground">در حال بارگذاری پلتفرم‌ها...</p>
+              <p className="text-muted-foreground dark:text-muted-foreground">در حال بارگذاری سکو‌ها...</p>
             </div>
           </div>
         </div>
@@ -267,7 +267,7 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
           <div className="flex items-center justify-center gap-8 mb-8">
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">{totalPartners}</div>
-              <div className="text-sm text-muted-foreground dark:text-muted-foreground">پلتفرم فعال</div>
+              <div className="text-sm text-muted-foreground dark:text-muted-foreground">سکو فعال</div>
             </div>
             <div className="w-px h-12 bg-border dark:bg-border"></div>
             <div className="text-center">
@@ -286,7 +286,7 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
                 <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground dark:text-muted-foreground w-5 h-5" />
               <input
                 type="text"
-                placeholder="جستجو در پلتفرم‌ها..."
+                placeholder="جستجو در سکو‌ها..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pr-12 pl-4 py-3 bg-input dark:bg-input border border-border dark:border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right transition-all duration-200 text-foreground dark:text-foreground placeholder:text-muted-foreground dark:placeholder:text-muted-foreground"
@@ -343,8 +343,8 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
 
         {/* Partners Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 mb-12">
-          {displayedPartners.map((partner) => (
-            <PartnerCard key={partner.id} partner={partner} />
+          {displayedPartners.map((partner, index) => (
+            <PartnerCard key={partner.id || `partner-${index}`} partner={partner} />
           ))}
         </div>
 

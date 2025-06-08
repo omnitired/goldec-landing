@@ -28,7 +28,7 @@ async function testAPI() {
     
     // Test logo generation (simulating POST /api/generate-logo)
     console.log('\n🎨 Testing logo generation...');
-    const testName = 'تست پلتفرم';
+    const testName = 'تست سکو';
     const testId = 999;
     
     const colors = [
@@ -63,7 +63,7 @@ async function testAPI() {
     console.log('\n💾 Testing data modification...');
     const testPartner = {
       id: 151,
-      name: 'پلتفرم تست',
+      name: 'سکو تست',
       url: 'https://test-platform.ir',
       logo: '/logos/test-platform.svg',
       addedDate: '1404/01/15'

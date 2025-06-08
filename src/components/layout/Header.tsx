@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
     { href: '#features', label: content.nav.features },
     { href: '#how-it-works', label: content.nav.howItWorks },
     // { href: '#stats', label: content.nav.stats },
-    { href: '#partners', label: 'پلتفرم‌ها' },
+    { href: '#partners', label: 'سکو‌ها' },
     { href: '#contact', label: content.nav.contact },
   ];
 

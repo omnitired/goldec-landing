@@ -89,7 +89,7 @@ export default function NotFound() {
                   href="#partners" 
                   className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200 font-semibold underline decoration-2 underline-offset-2"
                 >
-                  پلتفرم‌ها
+                  سکو‌ها
                 </a>
                 <span className="text-gray-600 dark:text-gray-400 font-bold">•</span>
                 <a 

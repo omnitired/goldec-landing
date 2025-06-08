@@ -53,33 +53,39 @@ async function apiFetch<T>(
  * Transform API platform data to internal Partner format
  */
 function transformPlatformToPartner(platform: PlatformApiData): Partner {
-  // Generate logo path based on platform name
+  // Use the logo from API, with fallback to default
   let logo = '/logos/default-gold.svg'; // Default fallback
   
-  // Handle specific platform names with exact logo matches
-  const platformLogoMap: { [key: string]: string } = {
-    'اینوی': '/logos/اینوی-(سرویس-طلای-آپ).svg',
-  };
-  
-  if (platformLogoMap[platform.name]) {
-    logo = platformLogoMap[platform.name];
+  if (platform.logo) {
+    // If logo starts with /uploads, it's from the API server
+    if (platform.logo.startsWith('/uploads')) {
+      logo = `https://staging.panel.zarnext.com${platform.logo}`;
+    } else {
+      logo = platform.logo;
+    }
   } else {
-    // Try to find a matching logo by converting name to lowercase and removing spaces
-    const logoName = platform.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') || 'default';
-    logo = `/logos/${logoName}-gold.svg`;
+    // Fallback to local logos based on platform name
+    const platformLogoMap: { [key: string]: string } = {
+      'اینوی': '/logos/اینوی-(سرویس-طلای-آپ).svg',
+      'گلدیکا': '/logos/goldika-gold.svg',
+      'طلاسی': '/logos/talasea-gold.svg',
+    };
+    
+    if (platformLogoMap[platform.name]) {
+      logo = platformLogoMap[platform.name];
+    } else {
+      // Try to find a matching logo by converting name to lowercase and removing spaces
+      const logoName = platform.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') || 'default';
+      logo = `/logos/${logoName}-gold.svg`;
+    }
   }
   
-  // Use current date as addedDate if created_at is not available
-  // In the future, this will use the actual created_at from the API
-  const now = moment();
-  const jalaliDate = now.format('jYYYY/jMM/jDD');
-  
   return {
-    id: parseInt(platform.id.split('-')[0], 16) || Math.random() * 1000000, // Convert UUID to number or use random
+    id: platform.id,
     name: platform.name || platform.legal_name || 'نام نامشخص',
     url: platform.website_url || `https://example.com/${platform.name}`,
     logo,
-    addedDate: platform.created_at ? formatApiDateToJalali(platform.created_at) : jalaliDate,
+    addedDate: platform.created_at ? formatApiDateToJalali(platform.created_at) : moment().format('jYYYY/jMM/jDD'),
   };
 }
 
@@ -141,18 +147,16 @@ export async function getPartnersData(): Promise<{ partners: Partner[]; settings
     
     const response = await apiFetch<PlatformsApiResponse>(apiUrl);
     
+    if (response.status !== 200) {
+      throw new Error(`API returned status ${response.status}: ${response.message}`);
+    }
+
     if (!response.data || !Array.isArray(response.data)) {
       throw new Error('Invalid API response format');
     }
 
-    // Transform API data to Partner format
-    const partners: Partner[] = response.data.map((platform: PlatformApiData) => ({
-      id: parseInt(platform.id, 10),
-      name: platform.legal_name || platform.name,
-      url: platform.website_url,
-      logo: `/logos/${platform.name.toLowerCase().replace(/\s+/g, '-')}-gold.svg`,
-      addedDate: platform.created_at ? formatApiDateToJalali(platform.created_at) : moment().format('jYYYY/jMM/jDD'),
-    }));
+    // Transform API data to Partner format using the transform function
+    const partners: Partner[] = response.data.map(transformPlatformToPartner);
 
     return {
       partners,

@@ -140,7 +140,7 @@ React State → Next.js → partners.json → /src/data/
 ## 🚀 Key Features Demo
 
 ### Adding New Partners
-1. Click "افزودن پلتفرم" (Add Platform)
+1. Click "افزودن سکو" (Add Platform)
 2. Fill required fields (name, URL)
 3. Optional: Provide logo path or leave empty for auto-generation
 4. Set membership date (defaults to today)
