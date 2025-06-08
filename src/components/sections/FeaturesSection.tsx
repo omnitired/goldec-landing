@@ -15,7 +15,7 @@ const FeatureCard: React.FC<{
   description: string;
   iconColor: string;
 }> = ({ icon, title, description, iconColor }) => (
-  <div className="group bg-card rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-border hover:border-blue-200 hover:-translate-y-2">
+  <div className="group bg-card rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-border hover:border-blue-200 hover:-translate-y-2 text-center">
     <div className={cn(
       "w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-lg group-hover:scale-110 transition-all duration-300",
       iconColor
