@@ -5,6 +5,7 @@
 
 import { API_CONFIG, API_ENDPOINTS, DEFAULT_HEADERS, PlatformsApiResponse, PlatformApiData } from './api-config';
 import { Partner } from '@/types/content';
+import moment from 'moment-jalaali';
 
 /**
  * Generic API fetch function with retry logic
@@ -70,8 +71,8 @@ function transformPlatformToPartner(platform: PlatformApiData): Partner {
   
   // Use current date as addedDate if created_at is not available
   // In the future, this will use the actual created_at from the API
-  const now = new Date();
-  const jalaliDate = `${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')}`;
+  const now = moment();
+  const jalaliDate = now.format('jYYYY/jMM/jDD');
   
   return {
     id: parseInt(platform.id.split('-')[0], 16) || Math.random() * 1000000, // Convert UUID to number or use random
@@ -83,15 +84,27 @@ function transformPlatformToPartner(platform: PlatformApiData): Partner {
 }
 
 /**
- * Convert API date to Jalali format (placeholder for future implementation)
+ * Convert API date to Jalali format
  */
 function formatApiDateToJalali(apiDate: string): string {
-  // This is a placeholder - in the future, implement proper date conversion
-  // For now, return current date in Jalali format
-  // TODO: Use apiDate parameter for actual conversion
-  console.log('API date to convert:', apiDate); // Temporary to avoid unused parameter warning
-  const now = new Date();
-  return `${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')}`;
+  try {
+    // Parse the API date (assuming it's in ISO format or similar)
+    const date = moment(apiDate);
+    
+    if (!date.isValid()) {
+      // Fallback to current Jalali date if parsing fails
+      const now = moment();
+      return now.format('jYYYY/jMM/jDD');
+    }
+    
+    // Convert to Jalali format
+    return date.format('jYYYY/jMM/jDD');
+  } catch (error) {
+    console.error('Error converting API date to Jalali:', error);
+    // Fallback to current Jalali date
+    const now = moment();
+    return now.format('jYYYY/jMM/jDD');
+  }
 }
 
 /**
@@ -119,16 +132,39 @@ export async function fetchPlatforms(): Promise<Partner[]> {
 }
 
 /**
- * Get partners data with settings
+ * Get partners data from API (SSR compatible)
  */
-export async function getPartnersData() {
-  const partners = await fetchPlatforms();
-  
-  return {
-    partners,
-    settings: {
-      initialDisplayCount: 12,
-      expandStep: 12,
-    },
-  };
+export async function getPartnersData(): Promise<{ partners: Partner[]; settings: { initialDisplayCount: number; expandStep: number } }> {
+  try {
+    // Use internal API route for SSR compatibility
+    const apiUrl = typeof window === 'undefined' 
+      ? `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/partners`
+      : '/api/partners';
+    
+    const response = await apiFetch<PlatformsApiResponse>(apiUrl);
+    
+    if (!response.data || !Array.isArray(response.data)) {
+      throw new Error('Invalid API response format');
+    }
+
+    // Transform API data to Partner format
+    const partners: Partner[] = response.data.map((platform: PlatformApiData) => ({
+      id: parseInt(platform.id, 10),
+      name: platform.legal_name || platform.name,
+      url: platform.website_url,
+      logo: `/logos/${platform.name.toLowerCase().replace(/\s+/g, '-')}-gold.svg`,
+      addedDate: platform.created_at ? formatApiDateToJalali(platform.created_at) : moment().format('jYYYY/jMM/jDD'),
+    }));
+
+    return {
+      partners,
+      settings: {
+        initialDisplayCount: 12,
+        expandStep: 12,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching partners data:', error);
+    throw new Error('Failed to fetch partners data');
+  }
 }

@@ -6,12 +6,16 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dev:ssr": "NEXT_PUBLIC_SITE_URL=http://localhost:3000 next dev --turbopack",
+    "build:ssr": "next build",
+    "start:ssr": "next start"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@radix-ui/react-dialog": "^1.1.14",
     "clsx": "^2.1.1",
+    "critters": "^0.0.23",
     "framer-motion": "^12.16.0",
     "lucide-react": "^0.511.0",
     "moment-jalaali": "^0.10.4",

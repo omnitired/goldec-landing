@@ -28,7 +28,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   // Always start with light theme to avoid hydration mismatch
   const [theme, setThemeState] = useState<Theme>('light');
   const [mounted, setMounted] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isTransitioning] = useState(false);
 
   // Initialize theme after component mounts to avoid hydration issues
   useEffect(() => {
@@ -70,30 +70,26 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   useEffect(() => {
     if (!mounted) return;
     
-    setIsTransitioning(true);
-    
+    // Force immediate application without transition for static sites
     const root = document.documentElement;
     const body = document.body;
-    
-    // Add transition classes for smooth theme switching
-    root.style.transition = 'background-color 0.3s ease, color 0.3s ease';
-    body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
     
     // Remove existing theme classes
     root.classList.remove('dark', 'light');
     body.classList.remove('dark', 'light');
     
-    // Add current theme class
+    // Add current theme class immediately
     root.classList.add(theme);
     body.classList.add(theme);
     
-    // Apply theme-specific styles
+    // Force style application
     if (theme === 'dark') {
+      root.style.colorScheme = 'dark';
       root.style.setProperty('--background', '10 10 10'); // gray-950
       root.style.setProperty('--foreground', '248 250 252'); // slate-50
-      root.style.backgroundColor = 'rgb(10, 10, 10)';
-      body.style.backgroundColor = 'rgb(10, 10, 10)';
-      body.style.color = 'rgb(248, 250, 252)';
+      root.style.backgroundColor = '#0a0a0a';
+      body.style.backgroundColor = '#0a0a0a';
+      body.style.color = '#f8fafc';
       
       // Set meta theme-color for mobile browsers
       let metaThemeColor = document.querySelector('meta[name="theme-color"]');
@@ -104,11 +100,12 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       }
       metaThemeColor.setAttribute('content', '#0a0a0a');
     } else {
+      root.style.colorScheme = 'light';
       root.style.setProperty('--background', '255 255 255'); // white
       root.style.setProperty('--foreground', '23 23 23'); // neutral-900
-      root.style.backgroundColor = 'rgb(255, 255, 255)';
-      body.style.backgroundColor = 'rgb(255, 255, 255)';
-      body.style.color = 'rgb(23, 23, 23)';
+      root.style.backgroundColor = '#ffffff';
+      body.style.backgroundColor = '#ffffff';
+      body.style.color = '#171717';
       
       // Set meta theme-color for mobile browsers
       let metaThemeColor = document.querySelector('meta[name="theme-color"]');
@@ -126,15 +123,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     } catch (error) {
       console.warn('Failed to save theme to localStorage:', error);
     }
-    
-    // Remove transition after theme change is complete
-    const timeoutId = setTimeout(() => {
-      setIsTransitioning(false);
-      root.style.transition = '';
-      body.style.transition = '';
-    }, 300);
-    
-    return () => clearTimeout(timeoutId);
   }, [theme, mounted]);
 
 

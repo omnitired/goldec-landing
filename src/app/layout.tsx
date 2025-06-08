@@ -17,9 +17,22 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
               (function() {
                 try {
                   var theme = localStorage.getItem('theme');
-                  if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  var isDark = theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                  
+                  if (isDark) {
                     document.documentElement.classList.add('dark');
+                    document.documentElement.style.colorScheme = 'dark';
+                    document.documentElement.style.backgroundColor = '#0a0a0a';
                     document.body.classList.add('dark');
+                    document.body.style.backgroundColor = '#0a0a0a';
+                    document.body.style.color = '#f8fafc';
+                  } else {
+                    document.documentElement.classList.add('light');
+                    document.documentElement.style.colorScheme = 'light';
+                    document.documentElement.style.backgroundColor = '#ffffff';
+                    document.body.classList.add('light');
+                    document.body.style.backgroundColor = '#ffffff';
+                    document.body.style.color = '#171717';
                   }
                 } catch (e) {}
               })()
