@@ -30,21 +30,34 @@ RUN \
   else echo "Lockfile not found." && exit 1; \
   fi
 
-# Production image, copy all the files and run nginx
-FROM nginx:alpine AS runner
-WORKDIR /usr/share/nginx/html
+# Production image, copy all the files and run next
+FROM base AS runner
+WORKDIR /app
 
-# Remove default nginx static assets
-RUN rm -rf ./*
+ENV NODE_ENV production
+# Uncomment the following line in case you want to disable telemetry during runtime.
+# ENV NEXT_TELEMETRY_DISABLED 1
 
-# Copy static assets from builder stage
-COPY --from=builder /app/build .
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-# Copy nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copy the built application
+COPY --from=builder /app/public ./public
 
-# Expose port
-EXPOSE 80
+# Set the correct permission for prerender cache
+RUN mkdir .next
+RUN chown nextjs:nodejs .next
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 3000
+
+ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
+
+CMD ["node", "server.js"]
