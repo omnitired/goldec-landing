@@ -337,7 +337,7 @@ export default function TrackPage() {
                       ? "bg-gray-700 border-gray-500 text-gray-50 placeholder-gray-300 focus:bg-gray-600 focus:border-blue-400"
                       : "bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500 focus:bg-white"
                   )}
-                  placeholder={activeTab === 'transaction' ? 'مثال: invi-TC9A0E6BA12B3' : 'مثال: invi-DC9A0E6BA12B3'}
+                  placeholder={activeTab === 'transaction' ? 'مثال: platform-TC9A0E6BA12B3' : 'مثال: platform-DC9A0E6BA12B3'}
                   disabled={isLoading}
                 />
               </div>
