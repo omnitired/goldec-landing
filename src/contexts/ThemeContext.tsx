@@ -70,52 +70,78 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   useEffect(() => {
     if (!mounted) return;
     
-    // Force immediate application without transition for static sites
-    const root = document.documentElement;
-    const body = document.body;
-    
-    // Remove existing theme classes
-    root.classList.remove('dark', 'light');
-    body.classList.remove('dark', 'light');
-    
-    // Add current theme class immediately
-    root.classList.add(theme);
-    body.classList.add(theme);
-    
-    // Force style application
-    if (theme === 'dark') {
-      root.style.colorScheme = 'dark';
-      root.style.setProperty('--background', '10 10 10'); // gray-950
-      root.style.setProperty('--foreground', '248 250 252'); // slate-50
-      root.style.backgroundColor = '#0a0a0a';
-      body.style.backgroundColor = '#0a0a0a';
-      body.style.color = '#f8fafc';
+    const applyTheme = (currentTheme: Theme) => {
+      const root = document.documentElement;
+      const body = document.body;
       
-      // Set meta theme-color for mobile browsers
-      let metaThemeColor = document.querySelector('meta[name="theme-color"]');
-      if (!metaThemeColor) {
-        metaThemeColor = document.createElement('meta');
-        metaThemeColor.setAttribute('name', 'theme-color');
-        document.head.appendChild(metaThemeColor);
-      }
-      metaThemeColor.setAttribute('content', '#0a0a0a');
-    } else {
-      root.style.colorScheme = 'light';
-      root.style.setProperty('--background', '255 255 255'); // white
-      root.style.setProperty('--foreground', '23 23 23'); // neutral-900
-      root.style.backgroundColor = '#ffffff';
-      body.style.backgroundColor = '#ffffff';
-      body.style.color = '#171717';
+      // Remove existing theme classes with force
+      root.classList.remove('dark', 'light');
+      body.classList.remove('dark', 'light');
       
-      // Set meta theme-color for mobile browsers
-      let metaThemeColor = document.querySelector('meta[name="theme-color"]');
-      if (!metaThemeColor) {
-        metaThemeColor = document.createElement('meta');
-        metaThemeColor.setAttribute('name', 'theme-color');
-        document.head.appendChild(metaThemeColor);
+      // Force reflow to ensure classes are removed
+       void root.offsetHeight;
+      
+      // Add current theme class immediately
+      root.classList.add(currentTheme);
+      body.classList.add(currentTheme);
+      
+      // Apply theme-specific styles with !important for production builds
+      if (currentTheme === 'dark') {
+        root.style.setProperty('color-scheme', 'dark', 'important');
+        root.style.setProperty('background-color', '#0a0a0a', 'important');
+        body.style.setProperty('background-color', '#0a0a0a', 'important');
+        body.style.setProperty('color', '#f8fafc', 'important');
+        
+        // Update CSS custom properties
+        root.style.setProperty('--background', '#0a0a0a');
+        root.style.setProperty('--foreground', '#f8fafc');
+        root.style.setProperty('--card', '#1e293b');
+        root.style.setProperty('--card-foreground', '#f8fafc');
+        root.style.setProperty('--muted', '#1e293b');
+        root.style.setProperty('--muted-foreground', '#94a3b8');
+        root.style.setProperty('--border', '#334155');
+        
+        // Set meta theme-color for mobile browsers
+        let metaThemeColor = document.querySelector('meta[name="theme-color"]');
+        if (!metaThemeColor) {
+          metaThemeColor = document.createElement('meta');
+          metaThemeColor.setAttribute('name', 'theme-color');
+          document.head.appendChild(metaThemeColor);
+        }
+        metaThemeColor.setAttribute('content', '#0a0a0a');
+      } else {
+        root.style.setProperty('color-scheme', 'light', 'important');
+        root.style.setProperty('background-color', '#ffffff', 'important');
+        body.style.setProperty('background-color', '#ffffff', 'important');
+        body.style.setProperty('color', '#171717', 'important');
+        
+        // Update CSS custom properties
+        root.style.setProperty('--background', '#ffffff');
+        root.style.setProperty('--foreground', '#171717');
+        root.style.setProperty('--card', '#ffffff');
+        root.style.setProperty('--card-foreground', '#171717');
+        root.style.setProperty('--muted', '#f8fafc');
+        root.style.setProperty('--muted-foreground', '#64748b');
+        root.style.setProperty('--border', '#e2e8f0');
+        
+        // Set meta theme-color for mobile browsers
+        let metaThemeColor = document.querySelector('meta[name="theme-color"]');
+        if (!metaThemeColor) {
+          metaThemeColor = document.createElement('meta');
+          metaThemeColor.setAttribute('name', 'theme-color');
+          document.head.appendChild(metaThemeColor);
+        }
+        metaThemeColor.setAttribute('content', '#ffffff');
       }
-      metaThemeColor.setAttribute('content', '#ffffff');
-    }
+      
+      // Force style recalculation
+       root.style.display = 'none';
+       void root.offsetHeight;
+       root.style.display = '';
+    };
+    
+    // Apply theme immediately
+    applyTheme(theme);
     
     // Save to localStorage
     try {
@@ -123,6 +149,13 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     } catch (error) {
       console.warn('Failed to save theme to localStorage:', error);
     }
+    
+    // Additional check for production builds - reapply after a short delay
+    const timeoutId = setTimeout(() => {
+      applyTheme(theme);
+    }, 100);
+    
+    return () => clearTimeout(timeoutId);
   }, [theme, mounted]);
 
 

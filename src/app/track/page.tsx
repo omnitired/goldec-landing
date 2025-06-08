@@ -196,9 +196,9 @@ export default function TrackPage() {
               <div className="text-center">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                   {result.platform_name}
-                  {activeTab === 'transaction' && 'type' in result && (
+                  {activeTab === 'transaction' && transactionResult && (
                     <span className="text-sm font-medium text-blue-600 dark:text-blue-400 mr-2">
-                      - {result.type === 'buy' ? 'خرید' : result.type === 'sell' ? 'فروش' : result.type}
+                      - {transactionResult.type === 'buy' ? 'خرید' : transactionResult.type === 'sell' ? 'فروش' : transactionResult.type}
                     </span>
                   )}
                 </h3>

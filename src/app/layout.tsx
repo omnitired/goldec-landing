@@ -16,26 +16,54 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
             __html: `
               (function() {
                 try {
-                  var theme = localStorage.getItem('theme');
-                  var isDark = theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                  const theme = localStorage.getItem('theme') || 
+                    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
                   
-                  if (isDark) {
-                    document.documentElement.classList.add('dark');
-                    document.documentElement.style.colorScheme = 'dark';
-                    document.documentElement.style.backgroundColor = '#0a0a0a';
-                    document.body.classList.add('dark');
-                    document.body.style.backgroundColor = '#0a0a0a';
-                    document.body.style.color = '#f8fafc';
+                  const root = document.documentElement;
+                  const body = document.body;
+                  
+                  // Remove any existing theme classes
+                  root.classList.remove('dark', 'light');
+                  body.classList.remove('dark', 'light');
+                  
+                  // Add theme classes
+                  root.classList.add(theme);
+                  body.classList.add(theme);
+                  
+                  // Apply styles with !important for production builds
+                  if (theme === 'dark') {
+                    root.style.setProperty('color-scheme', 'dark', 'important');
+                    root.style.setProperty('background-color', '#0a0a0a', 'important');
+                    body.style.setProperty('background-color', '#0a0a0a', 'important');
+                    body.style.setProperty('color', '#f8fafc', 'important');
+                    
+                    // Set CSS custom properties
+                    root.style.setProperty('--background', '#0a0a0a');
+                    root.style.setProperty('--foreground', '#f8fafc');
+                    root.style.setProperty('--card', '#1e293b');
+                    root.style.setProperty('--card-foreground', '#f8fafc');
+                    root.style.setProperty('--muted', '#1e293b');
+                    root.style.setProperty('--muted-foreground', '#94a3b8');
+                    root.style.setProperty('--border', '#334155');
                   } else {
-                    document.documentElement.classList.add('light');
-                    document.documentElement.style.colorScheme = 'light';
-                    document.documentElement.style.backgroundColor = '#ffffff';
-                    document.body.classList.add('light');
-                    document.body.style.backgroundColor = '#ffffff';
-                    document.body.style.color = '#171717';
+                    root.style.setProperty('color-scheme', 'light', 'important');
+                    root.style.setProperty('background-color', '#ffffff', 'important');
+                    body.style.setProperty('background-color', '#ffffff', 'important');
+                    body.style.setProperty('color', '#171717', 'important');
+                    
+                    // Set CSS custom properties
+                    root.style.setProperty('--background', '#ffffff');
+                    root.style.setProperty('--foreground', '#171717');
+                    root.style.setProperty('--card', '#ffffff');
+                    root.style.setProperty('--card-foreground', '#171717');
+                    root.style.setProperty('--muted', '#f8fafc');
+                    root.style.setProperty('--muted-foreground', '#64748b');
+                    root.style.setProperty('--border', '#e2e8f0');
                   }
-                } catch (e) {}
-              })()
+                } catch (e) {
+                  console.warn('Theme initialization failed:', e);
+                }
+              })();
             `,
           }}
         />
