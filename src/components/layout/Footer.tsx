@@ -3,131 +3,50 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useContent } from '@/hooks/useContent';
-import { PhoneIcon, TwitterIcon, InstagramIcon, PinterestIcon } from '@/components/ui/Icons';
+import { PhoneIcon } from '@/components/ui/Icons';
 
 interface FooterProps {
   className?: string;
 }
-
-
-
-const SocialLink: React.FC<{
-  href: string;
-  icon: React.ReactNode;
-  bgColor: string;
-}> = ({ href, icon, bgColor }) => (
-  <a
-    href={href}
-    className={cn(
-      "rounded-xl p-3 transition-all duration-300 hover:scale-110 shadow-lg",
-      bgColor
-    )}
-  >
-    {icon}
-  </a>
-);
 
 const Footer: React.FC<FooterProps> = ({ className }) => {
   const content = useContent();
 
   return (
     <footer className={cn(
-      "bg-gradient-to-br from-slate-900 via-gray-900 to-black text-white py-20 px-6 transition-colors duration-300",
+      "py-8 bg-gradient-to-br from-slate-900/95 via-gray-900/95 to-slate-900/95 dark:from-slate-950/95 dark:via-gray-950/95 dark:to-slate-950/95 backdrop-blur-xl border-t border-blue-500/20 dark:border-blue-400/30 text-white relative overflow-hidden",
       className
     )}>
-      <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
-        {/* Links Section */}
-        {/* <div>
-          <h3 className="text-xl font-bold mb-8 text-yellow-400">
-            {content.footer.title}
+      {/* Subtle background decoration */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-transparent" />
+      
+      <div className="max-w-3xl mx-auto px-6 relative">
+        {/* Main content */}
+        <div className="text-center mb-6">
+          <h3 className="text-xl font-black mb-2 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent drop-shadow-lg">
+            {content.brand}
           </h3>
-          <ul className="space-y-4">
-            <FooterLink
-              href="#features"
-              icon={<HomeIcon className="w-5 h-5" />}
-              onClick={() => scrollToSection('#features')}
-            >
-              {content.footer.mainPage}
-            </FooterLink>
-            <FooterLink
-              href="#how-it-works"
-              icon={<StarIcon className="w-5 h-5" />}
-              onClick={() => scrollToSection('#how-it-works')}
-            >
-              {content.footer.services}
-            </FooterLink>
-            <FooterLink
-              href="#stats"
-              icon={<DocumentIcon className="w-5 h-5" />}
-              onClick={() => scrollToSection('#stats')}
-            >
-              {content.footer.managers}
-            </FooterLink>
-            <FooterLink
-              href="#contact"
-              icon={<EmailIcon className="w-5 h-5" />}
-              onClick={() => scrollToSection('#contact')}
-            >
-              {content.footer.contact}
-            </FooterLink>
-          </ul>
-        </div> */}
-
-        {/* About Section */}
-        <div>
-          <h3 className="text-xl font-bold mb-8 text-blue-400">
-            {content.footer.aboutTitle}
-          </h3>
-          <p className="text-white/70 leading-relaxed">
+          <p className="text-white/70 dark:text-white/70 text-sm leading-relaxed">
             {content.footer.aboutText}
           </p>
         </div>
 
-        {/* Contact Section */}
-        <div>
-          <h3 className="text-xl font-bold mb-8 text-blue-400">
-            {content.footer.contactTitle}
-          </h3>
-          <div className="space-y-4">
-            {/* <p className="text-white/70 flex items-center group">
-              <EmailIcon className="w-5 h-5 ml-3 group-hover:text-blue-400 transition-colors" />
-              {content.footer.email}
-            </p> */}
-            <p className="text-white/70 flex items-center group">
-              <PhoneIcon className="w-5 h-5 ml-3 group-hover:text-blue-400 transition-colors" />
-              {content.footer.phone}
-            </p>
+        {/* Contact info */}
+        <div className="flex justify-center mb-6">
+          <div className="flex items-center gap-3 space-x-reverse bg-white/10 dark:bg-white/10 backdrop-blur-sm rounded-xl px-6 py-3 border border-blue-500/20 dark:border-blue-400/30 shadow-xl shadow-black/20 dark:shadow-black/40">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/25">
+              <PhoneIcon className="w-4 h-4 text-white drop-shadow-lg" />
+            </div>
+            <span className="font-medium text-white text-sm">{content.footer.phone}</span>
           </div>
         </div>
 
-        {/* Social Section */}
-        <div>
-          <h3 className="text-xl font-bold mb-8 text-blue-400">
-            {content.footer.socialTitle}
-          </h3>
-          <div className="flex gap-4">
-            <SocialLink
-              href="#"
-              icon={<TwitterIcon className="w-6 h-6" />}
-              bgColor="bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-400 hover:to-blue-500"
-            />
-            <SocialLink
-              href="#"
-              icon={<InstagramIcon className="w-6 h-6" />}
-              bgColor="bg-gradient-to-br from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400"
-            />
-            <SocialLink
-              href="#"
-              icon={<PinterestIcon className="w-6 h-6" />}
-              bgColor="bg-gradient-to-br from-red-500 to-pink-500 hover:from-red-400 hover:to-pink-400"
-            />
-          </div>
+        {/* Copyright */}
+        <div className="text-center pt-4 border-t border-blue-500/20 dark:border-blue-400/30">
+          <p className="text-xs text-white/60 dark:text-white/60">
+            &copy; {new Date().getFullYear()} {content.brand}. {content.footer.copyright}
+          </p>
         </div>
-      </div>
-
-      {/* Copyright */}
-      <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/20 text-center text-white/60">
-        <p>&copy; {new Date().getFullYear()} {content.brand}. {content.footer.copyright}</p>
       </div>
     </footer>
   );

@@ -286,7 +286,7 @@ const InquirySection: React.FC<InquirySectionProps> = ({ className }) => {
             </div>
           </div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 animate-in fade-in-0 slide-in-from-bottom-2 duration-500 delay-300">
-            سامانه جامع نظارت طلا
+            سامانه نظارت بر معاملات طلا
           </h1>
           <p className="text-gray-600 dark:text-gray-300 text-lg animate-in fade-in-0 slide-in-from-bottom-2 duration-500 delay-400">
             کد استعلام خود را وارد کنید

@@ -32,9 +32,18 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
     if (item.isRoute) {
       window.location.href = item.href;
     } else {
-      const element = document.querySelector(item.href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+      // Check if we're on the homepage
+      const isHomepage = window.location.pathname === '/';
+      
+      if (isHomepage) {
+        // If on homepage, scroll to the element
+        const element = document.querySelector(item.href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        // If not on homepage, redirect to homepage with hash
+        window.location.href = `/${item.href}`;
       }
     }
     setIsMobileMenuOpen(false);
