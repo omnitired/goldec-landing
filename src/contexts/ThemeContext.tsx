@@ -39,31 +39,15 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         const savedTheme = localStorage.getItem('theme') as Theme;
         if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
           initialTheme = savedTheme;
-        } else {
-          // Check system preference
-          const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-          initialTheme = mediaQuery.matches ? 'dark' : 'light';
-          
-          // Listen for system theme changes
-          const handleSystemThemeChange = (e: MediaQueryListEvent) => {
-            if (!localStorage.getItem('theme')) {
-              setThemeState(e.matches ? 'dark' : 'light');
-            }
-          };
-          
-          mediaQuery.addEventListener('change', handleSystemThemeChange);
-          
-          // Cleanup listener
-          return () => mediaQuery.removeEventListener('change', handleSystemThemeChange);
         }
+        // System theme inheritance disabled - always default to 'light' if no saved theme
       }
       
       setThemeState(initialTheme);
       setMounted(true);
     };
     
-    const cleanup = initializeTheme();
-    return cleanup;
+    initializeTheme();
   }, []);
 
   // Apply theme changes after mount
