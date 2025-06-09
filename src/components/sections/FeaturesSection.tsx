@@ -55,7 +55,7 @@ const FeaturesSection: React.FC<FeatureSectionProps> = ({ className }) => {
 
   return (
     <section id="features" data-theme={theme} className={cn(
-      "py-24 bg-black relative overflow-hidden",
+      "py-24 bg-background relative overflow-hidden",
       className
     )}>
       <div className="max-w-7xl mx-auto">

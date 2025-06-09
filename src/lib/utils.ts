@@ -16,6 +16,22 @@ export const formatNumber = (num: number): string => {
   return new Intl.NumberFormat('fa-IR').format(num);
 };
 
+export const formatPrice = (price: number): string => {
+  return new Intl.NumberFormat('fa-IR').format(price);
+};
+
+// Date formatting utility for Persian locale
+export const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('fa-IR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit'
+  }).format(date);
+};
+
 export const isValidEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);

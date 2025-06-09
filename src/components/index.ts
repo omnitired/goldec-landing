@@ -1,16 +1,18 @@
-// Layout Components
+// Layout components
 export { default as Header } from './layout/Header';
 export { default as Footer } from './layout/Footer';
-export { default as Layout } from './layout/Layout';
 
-// Section Components
+// Section components
 export { default as HeroSection } from './sections/HeroSection';
 export { default as FeaturesSection } from './sections/FeaturesSection';
 export { default as HowItWorksSection } from './sections/HowItWorksSection';
-export { default as StatsSection } from './sections/StatsSection';
 export { default as PartnersSection } from './sections/PartnersSection';
-export { default as CTASection } from './sections/CTASection';
 
-// UI Components
+// Track components
+export { default as TrackingResult } from './track/TrackingResult';
+
+// UI components
 export { default as Button } from './ui/Button';
-export * from './ui/Icons';
+export { default as ModalBottomSheet } from './ui/ModalBottomSheet';
+export { default as ParticleBackground } from './ui/ParticleBackground';
+export { ShieldIcon } from './ui/Icons';
