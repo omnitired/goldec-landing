@@ -11,7 +11,7 @@ SERVER_USER="root"  # Change this to your server username
 SERVER_PATH="/root/goldec-landing"  # Change this to your desired server path
 
 echo "Building project..."
-# npm run build
+npm run build
 
 echo "Syncing to server..."
 rsync -rvz --delete --no-perms --no-owner --no-group \

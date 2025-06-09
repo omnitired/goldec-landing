@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { useContent } from '@/hooks/useContent';
 import { useTheme } from '@/contexts/ThemeContext';
-import { ShieldIcon, MenuIcon } from '@/components/ui/Icons';
+import { MenuIcon } from '@/components/ui/Icons';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 
 interface HeaderProps {
