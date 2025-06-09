@@ -21,7 +21,7 @@ rsync -rvz --delete --no-perms --no-owner --no-group \
     ./ "$SERVER_USER@$SERVER_HOST:$SERVER_PATH/"
 
 echo "installing dependencies..."
-ssh "$SERVER_USER@$SERVER_HOST" "source ~/.nvm/nvm.sh && cd $SERVER_PATH && npm ci"
+# ssh "$SERVER_USER@$SERVER_HOST" "source ~/.nvm/nvm.sh && cd $SERVER_PATH && npm ci"
 echo "Restarting pm2 service..."
 ssh "$SERVER_USER@$SERVER_HOST" "source ~/.nvm/nvm.sh && pm2 restart goldec-landing"
 
