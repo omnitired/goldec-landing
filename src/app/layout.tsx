@@ -4,7 +4,7 @@ import { ThemeProvider } from '@/contexts/ThemeContext';
 
 export const metadata: Metadata = {
   title: "سامانه نظارت بر معاملات طلای آب‌شده ",
-  description: "سامانه نظارت بر سکو‌های معامله طلای آب‌شده؛ قدرت گرفته از اتحادیه کسب و کارهای مجازی",
+  description: "سامانه نظارت بر سکو‌های معامله طلای آب‌شده؛ قدرت گرفته از اتحادیه کشوری کسب و کارهای مجازی",
 };
 
 export default function RootLayout({children}: Readonly<{children: React.ReactNode;}>) {
