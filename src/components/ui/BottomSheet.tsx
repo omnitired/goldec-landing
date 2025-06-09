@@ -70,26 +70,26 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
         />
         <Drawer.Content
           className={cn(
-            'bg-white dark:bg-gray-800 flex flex-col rounded-t-[10px] h-full mt-24 fixed bottom-0 left-0 right-0 z-50',
-            'border-t border-gray-200 dark:border-gray-600',
+            'bg-card flex flex-col rounded-t-[10px] h-full mt-24 fixed bottom-0 left-0 right-0 z-50',
+            'border-t border-border shadow-lg',
             contentClassName
           )}
         >
           {showHandle && (
-            <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-gray-300 dark:bg-gray-600 mb-8 mt-4" />
+            <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-muted-foreground/30 mb-8 mt-4" />
           )}
           
           {(title || showCloseButton) && (
             <div className="flex items-center justify-between px-6 pb-4">
               {title && (
-                <Drawer.Title className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                <Drawer.Title className="text-lg font-semibold text-card-foreground">
                   {title}
                 </Drawer.Title>
               )}
               {showCloseButton && (
                 <button
                   onClick={() => onOpenChange(false)}
-                  className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                  className="w-8 h-8 flex items-center justify-center rounded-full bg-muted text-muted-foreground hover:text-card-foreground hover:bg-muted/80 transition-colors"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -100,7 +100,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
           )}
           
           {description && (
-            <Drawer.Description className="text-sm text-gray-500 dark:text-gray-400 px-6 pb-4">
+            <Drawer.Description className="text-sm text-muted-foreground px-6 pb-4">
               {description}
             </Drawer.Description>
           )}

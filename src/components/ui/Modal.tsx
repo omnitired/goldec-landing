@@ -55,13 +55,13 @@ const Modal: React.FC<ModalProps> = ({
         <Dialog.Content
           className={cn(
             'fixed left-[50%] top-[50%] z-50 grid w-full translate-x-[-50%] translate-y-[-50%] gap-4',
-            'bg-white dark:bg-gray-800 p-6 shadow-lg duration-200',
+            'bg-card p-6 shadow-lg duration-200',
             'data-[state=open]:animate-in data-[state=closed]:animate-out',
             'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
             'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
             'data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%]',
             'data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]',
-            'rounded-2xl border border-gray-200 dark:border-gray-600',
+            'rounded-2xl border border-border',
             sizeClasses[size],
             contentClassName
           )}
@@ -69,12 +69,12 @@ const Modal: React.FC<ModalProps> = ({
           {(title || showCloseButton) && (
             <div className="flex items-center justify-between">
               {title && (
-                <Dialog.Title className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                <Dialog.Title className="text-lg font-semibold text-card-foreground">
                   {title}
                 </Dialog.Title>
               )}
               {showCloseButton && (
-                <Dialog.Close className="rounded-sm opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-gray-950 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-gray-100 data-[state=open]:text-gray-500 dark:ring-offset-gray-950 dark:focus:ring-gray-300 dark:data-[state=open]:bg-gray-800 dark:data-[state=open]:text-gray-400">
+                <Dialog.Close className="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-muted data-[state=open]:text-muted-foreground">
                   <svg
                     className="h-4 w-4"
                     fill="none"
@@ -94,7 +94,7 @@ const Modal: React.FC<ModalProps> = ({
             </div>
           )}
           {description && (
-            <Dialog.Description className="text-sm text-gray-500 dark:text-gray-400">
+            <Dialog.Description className="text-sm text-muted-foreground">
               {description}
             </Dialog.Description>
           )}
