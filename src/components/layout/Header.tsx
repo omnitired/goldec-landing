@@ -65,7 +65,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           {/* <div className="w-12 h-12 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-xl shadow-blue-500/25 group-hover:shadow-blue-500/40 transition-all duration-300 group-hover:scale-105">
             <ShieldIcon className="w-7 h-7 text-white drop-shadow-lg" />
           </div> */}
-          <div className="text-2xl font-black bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent drop-shadow-lg">
+          <div className="text-lg font-black bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent drop-shadow-lg">
             {content.brand}
           </div>
         </div>

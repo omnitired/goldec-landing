@@ -202,7 +202,7 @@ export default function TrackPage() {
                         : "text-gray-600 hover:text-gray-900"
                   )}
                 >
-                  رهگیری ارسال
+                  رهگیری تحویل
                 </button>
               </div>
             </div>
