@@ -3,6 +3,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useContent } from '@/hooks/useContent';
+import { useTheme } from '@/contexts/ThemeContext';
 import { FileIcon, ClockIcon, ReportIcon } from '@/components/ui/Icons';
 
 interface HowItWorksSectionProps {
@@ -35,6 +36,7 @@ const StepCard: React.FC<{
 
 const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ className }) => {
   const content = useContent();
+  const { theme } = useTheme();
 
   const steps = [
     {
@@ -61,7 +63,7 @@ const HowItWorksSection: React.FC<HowItWorksSectionProps> = ({ className }) => {
   ];
 
   return (
-    <section id="how-it-works" className={cn(
+    <section id="how-it-works" data-theme={theme} className={cn(
       "py-24 px-6 bg-background relative overflow-hidden",
       className
     )}>

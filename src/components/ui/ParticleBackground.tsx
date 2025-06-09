@@ -480,7 +480,7 @@ d        @keyframes organicFloat {
         }
       `}</style>
       
-      <div className={cn("particle-container", theme, className)}>
+      <div className={cn("particle-container", theme, className)} data-theme={theme}>
         {/* Main Particles */}
         {Array.from({ length: 8 }, (_, i) => (
           <span key={i} className="particle" />

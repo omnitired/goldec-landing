@@ -66,81 +66,34 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     return cleanup;
   }, []);
 
-  // Apply theme classes only after mount and when theme changes
+  // Apply theme changes after mount
   useEffect(() => {
     if (!mounted) return;
     
     const applyTheme = (currentTheme: Theme) => {
       const root = document.documentElement;
-      const body = document.body;
       
-      // Remove existing theme classes with force
+      // Use data attribute for primary theme detection
+      root.setAttribute('data-theme', currentTheme);
+      
+      // Also update classes for backward compatibility
       root.classList.remove('dark', 'light');
-      body.classList.remove('dark', 'light');
-      
-      // Force reflow to ensure classes are removed
-       void root.offsetHeight;
-      
-      // Add current theme class immediately
       root.classList.add(currentTheme);
-      body.classList.add(currentTheme);
       
-      // Apply theme-specific styles with !important for production builds
-      if (currentTheme === 'dark') {
-        root.style.setProperty('color-scheme', 'dark', 'important');
-        root.style.setProperty('background-color', '#0a0a0a', 'important');
-        body.style.setProperty('background-color', '#0a0a0a', 'important');
-        body.style.setProperty('color', '#f8fafc', 'important');
-        
-        // Update CSS custom properties
-        root.style.setProperty('--background', '#0a0a0a');
-        root.style.setProperty('--foreground', '#f8fafc');
-        root.style.setProperty('--card', '#1e293b');
-        root.style.setProperty('--card-foreground', '#f8fafc');
-        root.style.setProperty('--muted', '#1e293b');
-        root.style.setProperty('--muted-foreground', '#94a3b8');
-        root.style.setProperty('--border', '#334155');
-        
-        // Set meta theme-color for mobile browsers
-        let metaThemeColor = document.querySelector('meta[name="theme-color"]');
-        if (!metaThemeColor) {
-          metaThemeColor = document.createElement('meta');
-          metaThemeColor.setAttribute('name', 'theme-color');
-          document.head.appendChild(metaThemeColor);
-        }
-        metaThemeColor.setAttribute('content', '#0a0a0a');
-      } else {
-        root.style.setProperty('color-scheme', 'light', 'important');
-        root.style.setProperty('background-color', '#ffffff', 'important');
-        body.style.setProperty('background-color', '#ffffff', 'important');
-        body.style.setProperty('color', '#171717', 'important');
-        
-        // Update CSS custom properties
-        root.style.setProperty('--background', '#ffffff');
-        root.style.setProperty('--foreground', '#171717');
-        root.style.setProperty('--card', '#ffffff');
-        root.style.setProperty('--card-foreground', '#171717');
-        root.style.setProperty('--muted', '#f8fafc');
-        root.style.setProperty('--muted-foreground', '#64748b');
-        root.style.setProperty('--border', '#e2e8f0');
-        
-        // Set meta theme-color for mobile browsers
-        let metaThemeColor = document.querySelector('meta[name="theme-color"]');
-        if (!metaThemeColor) {
-          metaThemeColor = document.createElement('meta');
-          metaThemeColor.setAttribute('name', 'theme-color');
-          document.head.appendChild(metaThemeColor);
-        }
-        metaThemeColor.setAttribute('content', '#ffffff');
+      // Set color scheme
+      root.style.colorScheme = currentTheme;
+      
+      // Update meta theme-color for mobile browsers
+      let metaThemeColor = document.querySelector('meta[name="theme-color"]');
+      if (!metaThemeColor) {
+        metaThemeColor = document.createElement('meta');
+        metaThemeColor.setAttribute('name', 'theme-color');
+        document.head.appendChild(metaThemeColor);
       }
-      
-      // Force style recalculation
-       root.style.display = 'none';
-       void root.offsetHeight;
-       root.style.display = '';
+      metaThemeColor.setAttribute('content', currentTheme === 'dark' ? '#0a0a0a' : '#ffffff');
     };
     
-    // Apply theme immediately
+    // Apply theme
     applyTheme(theme);
     
     // Save to localStorage
@@ -149,13 +102,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     } catch (error) {
       console.warn('Failed to save theme to localStorage:', error);
     }
-    
-    // Additional check for production builds - reapply after a short delay
-    const timeoutId = setTimeout(() => {
-      applyTheme(theme);
-    }, 100);
-    
-    return () => clearTimeout(timeoutId);
   }, [theme, mounted]);
 
 

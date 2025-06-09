@@ -3,6 +3,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { useContent } from '@/hooks/useContent';
+import { useTheme } from '@/contexts/ThemeContext';
 import { Partner } from '@/types/content';
 import { getPartnersData } from '@/lib/api-service';
 import { ExternalLink, ChevronDown, ChevronUp, Search, ArrowUpDown, Calendar, Loader2 } from 'lucide-react';
@@ -83,6 +84,7 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ partner }) => {
 
 const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
   const content = useContent();
+  const { theme } = useTheme();
   const [partnersData, setPartnersData] = useState<{ partners: Partner[]; settings: { initialDisplayCount: number; expandStep: number } }>({ partners: [], settings: { initialDisplayCount: 12, expandStep: 12 } });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -205,7 +207,7 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
   // Loading state
   if (loading) {
     return (
-      <section id="partners" className={cn(
+      <section id="partners" data-theme={theme} className={cn(
         "py-24 px-6 bg-background",
         className
       )}>
@@ -236,7 +238,7 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
   // Error state
   if (error) {
     return (
-      <section id="partners" className={cn(
+      <section id="partners" data-theme={theme} className={cn(
         "py-24 px-6 bg-background",
         className
       )}>
@@ -274,10 +276,10 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
   }
 
   return (
-    <section id="partners" className={cn(
-      "py-24 px-6 bg-background",
-      className
-    )}>
+      <section id="partners" data-theme={theme} className={cn(
+        "py-24 px-6 bg-background",
+        className
+      )}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">

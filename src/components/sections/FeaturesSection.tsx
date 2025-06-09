@@ -3,6 +3,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useContent } from '@/hooks/useContent';
+import { useTheme } from '@/contexts/ThemeContext';
 import { DocumentIcon, CheckIcon, VerifiedIcon } from '@/components/ui/Icons';
 
 interface FeatureSectionProps {
@@ -29,6 +30,7 @@ const FeatureCard: React.FC<{
 
 const FeaturesSection: React.FC<FeatureSectionProps> = ({ className }) => {
   const content = useContent();
+  const { theme } = useTheme();
 
   const features = [
     {
@@ -52,8 +54,8 @@ const FeaturesSection: React.FC<FeatureSectionProps> = ({ className }) => {
   ];
 
   return (
-    <section id="features" className={cn(
-      "py-24 bg-background relative overflow-hidden",
+    <section id="features" data-theme={theme} className={cn(
+      "py-24 bg-black relative overflow-hidden",
       className
     )}>
       <div className="max-w-7xl mx-auto">

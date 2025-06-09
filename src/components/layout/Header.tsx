@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { useContent } from '@/hooks/useContent';
+import { useTheme } from '@/contexts/ThemeContext';
 import { ShieldIcon, MenuIcon } from '@/components/ui/Icons';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 
@@ -12,6 +13,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ className }) => {
   const content = useContent();
+  const { theme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
@@ -50,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   };
 
   return (
-    <nav className={cn(
+    <nav data-theme={theme} className={cn(
       "sticky top-0 z-50 bg-gradient-to-r from-slate-900/95 via-gray-900/95 to-slate-900/95 dark:from-slate-950/95 dark:via-gray-950/95 dark:to-slate-950/95 backdrop-blur-xl border-b border-blue-500/20 dark:border-blue-400/30 text-white py-4 px-6 shadow-2xl shadow-black/20 dark:shadow-black/40",
       className
     )}>

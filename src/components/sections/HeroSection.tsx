@@ -37,14 +37,18 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className }) => {
         }
 
         /* Dark mode styles */
+        .hero[data-theme="dark"],
         .hero.dark {
-          background: linear-gradient(135deg, #1e293b 0%, #374151 50%, #000000 100%);
+          background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+          color: #f8fafc;
         }
 
+        .hero[data-theme="dark"] .hero-text,
         .hero.dark .hero-text {
           color: white;
         }
 
+        .hero[data-theme="dark"] .hero-title-main,
         .hero.dark .hero-title-main {
           background: linear-gradient(to right, white, #f1f5f9, white);
           -webkit-background-clip: text;
@@ -52,6 +56,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className }) => {
           color: transparent;
         }
 
+        .hero[data-theme="dark"] .hero-title-accent,
         .hero.dark .hero-title-accent {
           background: linear-gradient(to right, #60a5fa, #3b82f6, #2563eb);
           -webkit-background-clip: text;
@@ -59,23 +64,29 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className }) => {
           color: transparent;
         }
 
+        .hero[data-theme="dark"] .hero-subtitle,
         .hero.dark .hero-subtitle {
           color: rgba(255, 255, 255, 0.9);
         }
 
+        .hero[data-theme="dark"] .hero-description,
         .hero.dark .hero-description {
           color: rgba(255, 255, 255, 0.7);
         }
 
         /* Light mode styles */
+        .hero[data-theme="light"],
         .hero.light {
-          background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+          background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #e2e8f0 100%);
+          color: #171717;
         }
 
+        .hero[data-theme="light"] .hero-text,
         .hero.light .hero-text {
           color: #1e293b;
         }
 
+        .hero[data-theme="light"] .hero-title-main,
         .hero.light .hero-title-main {
           background: linear-gradient(to right, #1e293b, #475569, #1e293b);
           -webkit-background-clip: text;
@@ -83,6 +94,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className }) => {
           color: transparent;
         }
 
+        .hero[data-theme="light"] .hero-title-accent,
         .hero.light .hero-title-accent {
           background: linear-gradient(to right, #165DFB, #3b82f6, #165DFB);
           -webkit-background-clip: text;
@@ -90,10 +102,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className }) => {
           color: transparent;
         }
 
+        .hero[data-theme="light"] .hero-subtitle,
         .hero.light .hero-subtitle {
           color: rgba(30, 41, 59, 0.9);
         }
 
+        .hero[data-theme="light"] .hero-description,
         .hero.light .hero-description {
           color: rgba(30, 41, 59, 0.7);
         }
@@ -102,7 +116,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className }) => {
         "hero relative py-16 px-6 min-h-[60vh] flex items-center transition-colors duration-300",
         theme,
         className
-      )}>
+      )} data-theme={theme}>
         {/* Particle Background */}
         <ParticleBackground />
         

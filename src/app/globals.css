@@ -17,6 +17,7 @@
   --secondary-foreground: #0f172a;
 }
 
+[data-theme="dark"],
 .dark {
   --background: #0a0a0a;
   --foreground: #f8fafc;
@@ -44,42 +45,36 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* Force dark mode styles with maximum specificity */
+/* Theme styles with data attributes for better reliability */
 html {
-  background-color: #ffffff !important;
-  transition: background-color 0.3s ease;
-}
-
-html.dark {
-  background-color: #0a0a0a !important;
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {
-  background-color: var(--background) !important;
-  color: var(--foreground) !important;
+  background-color: var(--background);
+  color: var(--foreground);
   font-family: 'IBM Plex Sans Arabic', Arial, Helvetica, sans-serif;
-  min-height: 100vh !important;
+  min-height: 100vh;
 }
 
-.dark body {
-  background-color: #0a0a0a !important;
-  color: #f8fafc !important;
+/* Data attribute selectors for better production reliability */
+[data-theme="dark"] {
+  color-scheme: dark;
 }
 
-/* Override any potential conflicting styles */
-.dark *:not([class*="bg-"]):not([style*="background"]) {
-  background-color: inherit;
+[data-theme="light"] {
+  color-scheme: light;
 }
 
-/* Force dark mode for main containers */
-.dark main {
-  background: linear-gradient(to bottom right, #020617, #0f172a, #1e293b) !important;
-}
-
-/* Ensure all text is visible in dark mode */
+/* Backward compatibility with class selectors */
 .dark {
   color-scheme: dark;
-  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.light {
+  color-scheme: light;
 }
 
 * {

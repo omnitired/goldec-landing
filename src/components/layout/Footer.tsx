@@ -3,6 +3,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useContent } from '@/hooks/useContent';
+import { useTheme } from '@/contexts/ThemeContext';
 import { PhoneIcon } from '@/components/ui/Icons';
 
 interface FooterProps {
@@ -11,9 +12,10 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ className }) => {
   const content = useContent();
+  const { theme } = useTheme();
 
   return (
-    <footer className={cn(
+    <footer data-theme={theme} className={cn(
       "py-8 bg-gradient-to-br from-slate-900/95 via-gray-900/95 to-slate-900/95 dark:from-slate-950/95 dark:via-gray-950/95 dark:to-slate-950/95 backdrop-blur-xl border-t border-blue-500/20 dark:border-blue-400/30 text-white relative overflow-hidden",
       className
     )}>
