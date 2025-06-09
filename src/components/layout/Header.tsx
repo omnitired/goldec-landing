@@ -27,7 +27,6 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
     { href: '#how-it-works', label: content.nav.howItWorks },
     // { href: '#stats', label: content.nav.stats },
     { href: '#partners', label: 'سکو‌ها' },
-    { href: '#contact', label: content.nav.contact },
   ];
 
   const handleNavigation = (item: { href: string; label: string; isRoute?: boolean }) => {
