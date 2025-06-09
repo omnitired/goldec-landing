@@ -57,14 +57,14 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
       className
     )}>
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        {/* Logo */}
+        {/* Logo Section - Brand identity with icon and text */}
         <div 
           onClick={() => isClient && (window.location.href = '/')}
           className="flex items-center space-x-6 space-x-reverse group cursor-pointer"
         >
-          <div className="w-12 h-12 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-xl shadow-blue-500/25 group-hover:shadow-blue-500/40 transition-all duration-300 group-hover:scale-105">
+          {/* <div className="w-12 h-12 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-xl shadow-blue-500/25 group-hover:shadow-blue-500/40 transition-all duration-300 group-hover:scale-105">
             <ShieldIcon className="w-7 h-7 text-white drop-shadow-lg" />
-          </div>
+          </div> */}
           <div className="text-2xl font-black bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent drop-shadow-lg">
             {content.brand}
           </div>
@@ -86,15 +86,15 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center space-x-4 space-x-reverse">
+        <div className="md:hidden flex items-center space-x-6 space-x-reverse">
+          <ThemeToggle />
           <button
-            className="p-3 hover:bg-white/10 dark:hover:bg-white/10 rounded-xl transition-all duration-300 hover:scale-105 border border-white/20 dark:border-white/20 hover:border-blue-400/50"
+            className="p-3 hover:bg-white/10 dark:hover:bg-white/10 rounded-xl transition-all duration-300 hover:scale-105"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
             <MenuIcon className="w-6 h-6 text-white" />
           </button>
-          <ThemeToggle />
         </div>
       </div>
 

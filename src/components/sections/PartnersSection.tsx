@@ -275,6 +275,42 @@ const PartnersSection: React.FC<PartnersSectionProps> = ({ className }) => {
     );
   }
 
+  // Empty state - when no partners data is available
+  if (!loading && !error && partnersData.partners.length === 0) {
+    return (
+      <section id="partners" data-theme={theme} className={cn(
+        "py-24 px-6 bg-background",
+        className
+      )}>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black text-foreground dark:text-foreground mb-6">
+              <span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+                {content.partners.title1}
+              </span>{' '}
+              {content.partners.title2}
+            </h2>
+            <p className="text-xl text-muted-foreground dark:text-muted-foreground max-w-2xl mx-auto mb-8">
+              {content.partners.subtitle}
+            </p>
+          </div>
+          
+          <div className="flex items-center justify-center py-20">
+            <div className="text-center max-w-md mx-auto">
+              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <ExternalLink className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground dark:text-foreground mb-4">هنوز سکویی به سامانه متصل نشده است.</h3>
+              <p className="text-muted-foreground dark:text-muted-foreground leading-relaxed">
+                مشخصات سکو پس از اتصال در این بخش نمایش داده خواهد شد.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
       <section id="partners" data-theme={theme} className={cn(
         "py-24 px-6 bg-background",
