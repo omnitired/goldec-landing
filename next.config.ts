@@ -3,6 +3,11 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  turbopack: {
+    resolveAlias: {
+      "@": "./src",
+    },
+  },
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
